@@ -7,6 +7,7 @@ import Filters.FBitRedux;
 import Filters.FBitSliding;
 import Filters.FColorShift;
 import Filters.FFuckIt;
+import Filters.FPixelSorting;
 import Filters.FTest;
 import Filters.Filter;
 import Mask.MCColor;
@@ -52,6 +53,7 @@ public class ClassList {
 		filterList.add(FBitSliding.class);
 		filterList.add(FFuckIt.class);
 		filterList.add(FBitRedux.class);
+		filterList.add(FPixelSorting.class);
 		filterList.add(FTest.class);
 		
 		
