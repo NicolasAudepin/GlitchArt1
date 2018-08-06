@@ -66,18 +66,20 @@ public class FPixelSorting extends Filter{
 		ArrayList<ArrayList<Boolean>> maxmat = new ArrayList<ArrayList<Boolean>>();
 		for(int i= 1 ; i<wid; i++){
 			ArrayList<Boolean> maxline =new ArrayList<Boolean>();
-			ArrayList<Integer> line = matrix.get(i);
+			ArrayList<Integer> line = matrix.get(i-1);
 			
-			for( int j=2 ; j<hei;j++){
+			for( int j=2 ; j<hei-2;j++){
 				Boolean pix = false;
-				if (line.get(i)>line.get(i-1)){
-					if(line.get(i)>line.get(i+1)){
+				if (line.get(j)>line.get(j-1)){
+					if(line.get(j)>line.get(j+1)){
 						pix =true;
 					}
 				}
 				maxline.add(pix);
-				System.out.println(maxline);
+				
 			}
+			System.out.println(maxline);
+			maxmat.add(maxline);
 		}
 		
 		System.out.println("MAGGIIIIIIC");
@@ -85,13 +87,14 @@ public class FPixelSorting extends Filter{
 			boolean select = false;
 			int marge = amp;
 			int first = 0;
-			ArrayList<Boolean> maxline = maxmat.get(i);
-			ArrayList<Integer> valline = matrix.get(i);
-			ArrayList<Integer> valueSelect = null;
-			ArrayList<Integer> pixselect = null;
+			ArrayList<Boolean> maxline = maxmat.get(i-1);
+			ArrayList<Integer> valline = matrix.get(i-1);
+			ArrayList<Integer> valueSelect = new ArrayList<Integer>();
+			ArrayList<Integer> pixselect = new ArrayList<Integer>();
 			
-			for(int j=1 ; j<hei-1;j++){
+			for(int j=1 ; j<hei-2;j++){
 				if (!select && maxline.get(j)){
+						System.out.println("on passe a true");
 						select= true;
 						marge=amp;
 						first=j;
