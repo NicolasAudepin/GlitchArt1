@@ -17,7 +17,7 @@ public class FPixelSorting extends Filter{
 		
 		super(buff);
 		name="Pixel Sorting";
-		createSlider("amplitude",1,100,1);
+		createSlider("amplitude",1,300,50);
 		String[] mode = {"lumière","obscure","osef"};
 		createButtonGroup("Modes",mode);
 		
@@ -25,8 +25,9 @@ public class FPixelSorting extends Filter{
 	
 	protected void getParamValue(){
 		RefreshParamValue();
-		amp = paramValue.get(1);
-		mode = paramValue.get(2)+2*paramValue.get(3)+3*paramValue.get(4);
+		System.out.println(paramValue);
+		amp = paramValue.get(0);
+		//mode = paramValue.get(2)+2*paramValue.get(3)+3*paramValue.get(4);
 		
 		
 	}
@@ -44,31 +45,33 @@ public class FPixelSorting extends Filter{
 	
 	@Override 
 	public BufferedImage applyFilter(BufferedImage input){
+		getParamValue();
 		BufferedImage output = deepCopy(input);
 		int wid = output.getWidth();
 		int hei = output.getHeight();
 		
 		System.out.println("création de la matrice");
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
-		for(int i= 1 ; i<wid; i++){
+		for(int i= 0 ; i<wid; i++){
 			ArrayList<Integer> line = new ArrayList<Integer>();
 			
-			for( int j=1 ; j<hei;j++){
+			for( int j=0 ; j<hei;j++){
 				int pix=output.getRGB(i, j);
 				Color c = new Color(pix);
 				line.add(PixValue(c.getRed(),c.getGreen(),c.getBlue()));
 			}
 			matrix.add(line);	
-			System.out.println(line);
+			//System.out.println(line);
 		}
+		System.out.println(matrix.size()+","+matrix.get(0).size());
 		
 		System.out.println("trouver les maximunes locaux");
 		ArrayList<ArrayList<Boolean>> maxmat = new ArrayList<ArrayList<Boolean>>();
 		for(int i= 1 ; i<wid; i++){
 			ArrayList<Boolean> maxline =new ArrayList<Boolean>();
 			ArrayList<Integer> line = matrix.get(i-1);
-			
-			for( int j=2 ; j<hei-2;j++){
+			maxline.add(false);
+			for( int j=2 ; j<hei-1;j++){
 				Boolean pix = false;
 				if (line.get(j)>line.get(j-1)){
 					if(line.get(j)>line.get(j+1)){
@@ -78,23 +81,28 @@ public class FPixelSorting extends Filter{
 				maxline.add(pix);
 				
 			}
-			System.out.println(maxline);
+			maxline.add(false);
+			//System.out.println(maxline);
 			maxmat.add(maxline);
 		}
+		System.out.println(maxmat.size()+","+maxmat.get(0).size());
 		
 		System.out.println("MAGGIIIIIIC");
 		for(int i= 1 ; i<wid; i++){
 			boolean select = false;
+			//amp=5;
 			int marge = amp;
 			int first = 0;
+			System.out.println(marge);
 			ArrayList<Boolean> maxline = maxmat.get(i-1);
 			ArrayList<Integer> valline = matrix.get(i-1);
 			ArrayList<Integer> valueSelect = new ArrayList<Integer>();
 			ArrayList<Integer> pixselect = new ArrayList<Integer>();
 			
 			for(int j=1 ; j<hei-2;j++){
-				if (!select && maxline.get(j)){
+				if (select==false && maxline.get(j)){
 						System.out.println("on passe a true");
+						pixselect = new ArrayList<Integer>();
 						select= true;
 						marge=amp;
 						first=j;
@@ -104,8 +112,9 @@ public class FPixelSorting extends Filter{
 					
 					pixselect.add(output.getRGB(i, j));
 					valueSelect.add(valline.get(j));
-					
+					//marge=marge-1;
 					if(valline.get(j)<valline.get(j+1)){
+						//System.out.println("on est dans le cas");
 						marge=marge-1;
 					}
 					if (marge==0){
@@ -113,7 +122,7 @@ public class FPixelSorting extends Filter{
 						select=false;
 						pixselect=tri(pixselect,valueSelect);
 						int len = pixselect.size();
-						for(int k=1;k<len;k++){
+						for(int k=1;k<len-1;k++){
 							output.setRGB(i, k+first, pixselect.get(k));
 						}
 						
