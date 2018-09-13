@@ -39,12 +39,21 @@ FILTER WINDOW
 	- ajouter le numéro de leffetc premier deuxime ...
 		
 	- ajouter une barre de progrèssion
+	
+STEREO3D
+
+	-ajouter le param image
+	
+	- trouver la formule
+	
+	-faire le truc
 		
 FILTER 
 
 	- imaginer un system de preview pour les filtre 
 		- gros pixels pour le pix par pix
 		- ligne par ligne sinon #pixsort
+		
 	
 	
 	- ajouter un output de progression reglo ex t in [0,1] pour la barre de progression
