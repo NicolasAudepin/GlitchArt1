@@ -1,5 +1,8 @@
 Trucs à MODIFIER
-
+GENERAL
+	- tout commenteer mieux
+	vraiment
+	sinon c'est trop chiant
 
 PIX SORT
 
@@ -7,7 +10,6 @@ PIX SORT
 	
 	- clarifier 
 
-	- pixsort  ajouter les deux mask input output
 	
 	- ajouter differents classement de pixel 
 		- claire < obscure 
@@ -27,11 +29,12 @@ MASK CREATOR WINDOW
 	
 MASK CREATOR
 	
-	- ajouter le  créateur A+B A-B B-A A*B
+	- ajouter le  créateur A+B A-B B-A A*B /A
 	
 FILTER WINDOW 
 	
 	- probleme affichage param mask espace en trop
+	en fait il faut rajouter l'affichage du filtre en petite image
 		
 	- ajouter le numéro de leffetc premier deuxime ...
 		
@@ -51,4 +54,8 @@ MAIN WINDOW
 	tout refaire
 
 	
+	
+	
+#################DONE	
+	- pixsort  ajouter les deux mask input output
 	
