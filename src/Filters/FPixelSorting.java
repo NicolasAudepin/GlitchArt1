@@ -13,6 +13,7 @@ import Mask.Mask;
 
 public class FPixelSorting extends Filter{
 	
+	//On doit définir dès ici les variables issues des parametre du filtre. ex: les mask 
 	int amp;
 	int mode;
 	boolean[][] inputMaskMatrix;
@@ -20,7 +21,7 @@ public class FPixelSorting extends Filter{
 	static ClassList classList;
 	
 	public FPixelSorting(BufferedImage buff){
-		
+		//Ici on créé les parametres du filtre en utilisant les fonctions prédéfinits "create..." 
 		super(buff);
 		name="Pixel Sorting";
 		createMask("Input",0);
@@ -28,14 +29,14 @@ public class FPixelSorting extends Filter{
 		createSlider("amplitude",1,300,50);
 		String[] mode = {"lumière","obscure","osef"};
 		createButtonGroup("Modes",mode);
-		classList = MainFrame.getClassList();
+		classList = MainFrame.getClassList(); //Utile pour avoir accès au Masks
 		
 	}
 	
 	protected void getParamValue(){
-		
+		//initialise les valeurs des paramètres définits en entete à partir de la liste de int fournie par RefrsehParamValue
 
-		RefreshParamValue();
+		RefreshParamValue();//Hérité de la classe Filter
 		System.out.println("paramValue"+paramValue);
 		
 		int inputMaskNb = paramValue.get(0);
@@ -68,8 +69,8 @@ public class FPixelSorting extends Filter{
 	
 	@Override 
 	public BufferedImage applyFilter(BufferedImage input){
-		// APPLIQUE L'EFFET Va récuperer les diferents parametre puis output l'image une fois traitée
-		getParamValue();
+		// APPLIQUE L'EFFET Va récuperer les valeurs des diferents parametre puis output l'image une fois traitée
+		getParamValue(); //On ce prépare tranquillement
 		BufferedImage output = deepCopy(input);
 		int wid = output.getWidth();
 		int hei = output.getHeight();
@@ -88,7 +89,7 @@ public class FPixelSorting extends Filter{
 			}
 			matrix.add(line);	
 			//System.out.println(line);
-		}// matrix est la matrice des valeurs
+		}// "matrix" est la matrice des valeurs de pixels 
 		
 		
 		System.out.println(matrix.size()+","+matrix.get(0).size());
@@ -182,10 +183,18 @@ public class FPixelSorting extends Filter{
 		return output;
 	}
 	
+	private ArrayList<Integer> triRecuwala(ArrayList<Integer>  pixList, ArrayList<Integer>  valList){
+		int len = pixList.size();
+		
+		
+		
+		return pixList;
+	}
+	
 	private ArrayList<Integer> tri(ArrayList<Integer>  pixList, ArrayList<Integer>  valList){
-		
-		pixList.sort(null);
-		
+		//Est sensé trier les pixels de pixList en utilisant valList comme règle de tri
+		//pixList.sort(null);
+		pixList=triRecuwala(pixList,valList);
 		return pixList;
 		
 	}
