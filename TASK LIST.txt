@@ -1,0 +1,61 @@
+Trucs à MODIFIER
+GENERAL
+	- tout commenteer mieux
+	vraiment
+	sinon c'est trop chiant
+
+PIX SORT
+
+	- pixsort a ameiliorer quand commence les lignes
+	
+	- clarifier 
+
+	
+	- ajouter differents classement de pixel 
+		- claire < obscure 
+		- obscure < claire
+		- RGB
+		
+PARAM
+
+	
+	- ajouter description au param 
+	+  |?| button pour acceder 	au descriptions a coté du nom du param
+
+
+MASK CREATOR WINDOW
+	- gerer le ddd faire proprement la liste des mask déjà créés
+	
+	
+MASK CREATOR
+	
+	- ajouter le  créateur A+B A-B B-A A*B /A
+	
+FILTER WINDOW 
+	
+	- probleme affichage param mask espace en trop
+	en fait il faut rajouter l'affichage du filtre en petite image
+		
+	- ajouter le numéro de leffetc premier deuxime ...
+		
+	- ajouter une barre de progrèssion
+		
+FILTER 
+
+	- imaginer un system de preview pour les filtre 
+		- gros pixels pour le pix par pix
+		- ligne par ligne sinon #pixsort
+	
+	
+	- ajouter un output de progression reglo ex t in [0,1] pour la barre de progression
+		
+MAIN WINDOW 
+	
+	tout refaire
+
+	
+	
+	
+#################DONE	
+	- pixsort  ajouter les deux mask input output
+	
