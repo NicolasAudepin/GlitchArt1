@@ -10,6 +10,7 @@ PIX SORT
 	
 	- clarifier 
 
+	-créé une thread discrete qui cherche les max dès la selection du filtre
 	
 	- ajouter differents classement de pixel 
 		- claire < obscure 
@@ -50,6 +51,8 @@ STEREO3D
 		
 FILTER 
 
+	creer un filtre oversampling/ downsampling avec comme param les interpollation proposée  # 
+
 	- imaginer un system de preview pour les filtre 
 		- gros pixels pour le pix par pix
 		- ligne par ligne sinon #pixsort
@@ -59,9 +62,20 @@ FILTER
 	- ajouter un output de progression reglo ex t in [0,1] pour la barre de progression
 		
 MAIN WINDOW 
+	- transformer cette zone en zone de visualisation des images
+	
+	faire en sorte de la selection de l'image d'input soit la premier chose qui apparaisse pour gagner du temps
+	
+	
 	
 	tout refaire
 
+FILTER PARENT 
+
+	- -gerer les affichages dynamiques agrandissement retrecissement
+	
+	- plus gros bouttons et texte
+	-images ajustables
 	
 	
 	
