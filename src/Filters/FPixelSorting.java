@@ -56,9 +56,17 @@ public class FPixelSorting extends Filter{
 		
 	}
 	
-	private int PixValue(int R , int G , int B){
-		
-		return R+G+B;
+	private int PixValue(int R , int G , int B,int mode ){
+		//choisi la formule de classification en fonction de la valeur de mode
+		int val=0;
+		if(mode==0){
+			val=R+G+B;
+		}
+		if(mode==1){
+			val = R*R+G*G+B*B;
+			
+		}
+		return val;
 	}
 	
 	public FPixelSorting(){
