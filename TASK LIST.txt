@@ -4,11 +4,24 @@ GENERAL
 	vraiment
 	sinon c'est trop chiant
 
+PARAM
+
+	
+	- ajouter description au param 
+	+  |?| button pour acceder 	au descriptions a coté du nom du param
+	
+	-ajouter fonction pour facilité de getvValueParam des selections dans une liste
+	 parce que la c'est chiant de devoir tout modifier dès que je veux rajouter un mode
+
+
+
 PIX SORT
 
 	- pixsort a ameiliorer quand commence les lignes
 	
 	- clarifier 
+	
+	- vérifier que le sorting est complet
 
 	-créé une thread discrete qui cherche les max dès la selection du filtre
 	
@@ -16,12 +29,10 @@ PIX SORT
 		- claire < obscure 
 		- obscure < claire
 		- RGB
+		- custom?
 		
-PARAM
+	ajouter un mode beug de quick sort ? wrong value ... B&b
 
-	
-	- ajouter description au param 
-	+  |?| button pour acceder 	au descriptions a coté du nom du param
 
 
 MASK CREATOR WINDOW

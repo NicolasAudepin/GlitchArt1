@@ -51,7 +51,7 @@ public class FPixelSorting extends Filter{
 		
 		System.out.println("amp"+paramValue);
 		amp = paramValue.get(2);
-		//mode = paramValue.get(2)+2*paramValue.get(3)+3*paramValue.get(4);
+		mode = paramValue.get(4)+2*paramValue.get(5);
 		
 		
 	}
@@ -63,8 +63,10 @@ public class FPixelSorting extends Filter{
 			val=R+G+B;
 		}
 		if(mode==1){
-			val = R*R+G*G+B*B;
-			
+			val = R*R+G*G+B*B;	
+		}
+		if(mode==2) {
+			val= -R;
 		}
 		return val;
 	}
@@ -93,7 +95,7 @@ public class FPixelSorting extends Filter{
 			for( int j=0 ; j<hei;j++){
 				int pix=output.getRGB(i, j);
 				Color c = new Color(pix);
-				line.add(PixValue(c.getRed(),c.getGreen(),c.getBlue()));
+				line.add(PixValue(c.getRed(),c.getGreen(),c.getBlue(),mode));
 			}
 			matrix.add(line);	
 			//System.out.println(line);
@@ -135,7 +137,7 @@ public class FPixelSorting extends Filter{
 		for(int i= 1 ; i<wid; i++){
 			boolean select = false;
 			
-			// initialisation des paramètre au début de chaque colonne
+			// initialisation des paramètre au start de chaque colonne
 			int marge = amp; //longueur des lignes de pixels triés
 			int first = 0;
 			System.out.println(marge);
@@ -147,8 +149,9 @@ public class FPixelSorting extends Filter{
 			for(int j=1 ; j<hei-2;j++){
 				// on on décide de creer une ligne de pixel trier à cet endroit tant que select = true la ligne continue
 				if (select==false && maxline.get(j) && inputMaskMatrix[i][j]){
-						System.out.println("on passe a true");
+						System.out.println("début le ligne");
 						pixselect = new ArrayList<Integer>();
+						valueSelect = new ArrayList<Integer>();
 						select= true;
 						marge=amp;
 						first=j;
@@ -171,8 +174,9 @@ public class FPixelSorting extends Filter{
 						// c'est le moment de trier la ligne de pixel et de réinitialiser des valeurs
 						System.out.println("tri");
 						select=false;
-						pixselect=tri(pixselect,valueSelect); // tri est la fonction qui organise les pixels en fonction de leurs valeurs
 						int len = pixselect.size();
+						quicksort(valueSelect,pixselect,1,len-1); // tri est la fonction qui organise les pixels en fonction de leurs valeurs
+						
 						
 						// on remplace les pixels sur l'image par les pixel triés rendus par le tri
 						for(int k=1;k<len-1;k++){
@@ -191,20 +195,46 @@ public class FPixelSorting extends Filter{
 		return output;
 	}
 	
-	private ArrayList<Integer> triRecuwala(ArrayList<Integer>  pixList, ArrayList<Integer>  valList){
-		int len = pixList.size();
-		
-		
-		
-		return pixList;
+
+
+	//copiécollé du web puis modifié
+	public static void quicksort(ArrayList<Integer> tableau,ArrayList<Integer> tableau2, int start, int fin) {
+		//trie deux liste à la fois suivant un quicksort sur la première est utile pour le trie be pixel obviously
+		//le tableau1 est trié et le tableau deux subit les mêmes transformation que le tableau 1 
+	    if (start < fin) {
+	        int indicePivot = partition(tableau, tableau2, start, fin);
+	        quicksort(tableau, tableau2, start, indicePivot-1);
+	        quicksort(tableau, tableau2, indicePivot+1, fin);
+	    }
 	}
 	
-	private ArrayList<Integer> tri(ArrayList<Integer>  pixList, ArrayList<Integer>  valList){
-		//Est sensé trier les pixels de pixList en utilisant valList comme règle de tri
-		//pixList.sort(null);
-		pixList=triRecuwala(pixList,valList);
-		return pixList;
-		
+	//copiécollé du web puis modifié
+	public static int partition (ArrayList<Integer> t,ArrayList<Integer> t2, int start, int fin) {
+		//Utile a quicksort modifié
+	    int valeurPivot = t.get(start);
+	    int valeurPivot2 = t2.get(start);
+	    int d = start+1;
+	    int f = fin;
+	    while (d < f) {
+	        while(d < f && t.get(f) >= valeurPivot) f--;
+	        while(d < f && t.get(d) <= valeurPivot) d++;
+	        int temp = t.get(d);
+	        t.set(d, t.get(f));
+	        t.set(f,temp);
+	        
+	        int temp2 = t2.get(d);
+	        t2.set(d, t2.get(f));
+	        t2.set(f,temp2);
+	        
+	    }
+	    if (t.get(d) > valeurPivot) d--;
+	    t.set(start, t.get(d));
+	    int val =valeurPivot;
+	    t.set(d, val);
+	    
+	    t2.set(start, t2.get(d));
+	    t2.set(d, valeurPivot2);
+	    return d;
 	}
 
 }
