@@ -4,6 +4,8 @@ GENERAL
 	vraiment
 	sinon c'est trop chiant
 
+	sauvegarde !!!
+
 PARAM
 
 	
@@ -15,13 +17,88 @@ PARAM
 
 
 
+MASK CREATOR WINDOW
+	- gerer le ddd faire proprement la liste des mask déjà créés
+	
+
+
+
+
+	
+FILTER WINDOW 
+	
+	- probleme affichage param mask espace en trop
+	en fait il faut rajouter l'affichage du filtre en petite image
+		
+	- ajouter le numéro de leffetc premier deuxime ...
+		
+	- ajouter une barre de progrèssion
+	
+
+
+
+
+
+MAIN WINDOW 
+	- transformer cette zone en zone de visualisation des images
+	-ajout de donnée sur l'image taille ...
+	
+	-faire en sorte de la selection de l'image d'input soit la premier chose qui apparaisse pour gagner du temps
+	
+	tout refaire
+
+
+
+WINDOWS PARENT 
+
+	- -gerer les affichages dynamiques agrandissement retrecissement
+	
+	- plus gros bouttons et texte
+	-images ajustables
+	
+
+
+	
+STEREO3D
+
+	-ajouter le param image
+	
+	- trouver la formule
+	
+	-faire le truc
+
+
+
+	
+MASK CREATOR
+	
+	- ajouter le  créateur A+B A-B B-A A*B /A
+
+
+
+		
+FILTER 
+
+	- imaginer un system de preview pour les filtre 
+		- gros pixels pour le pix par pix
+		- ligne par ligne sinon #pixsort
+		
+	
+
+	
+	- ajouter un output de progression reglo ex t in [0,1] pour la barre de progression
+		
+
+NEW FILTERS
+	
+	- rajouter un oversampling / downsamploing
+	
+	-creer un filtre oversampling/ downsampling avec comme param les interpollation proposée  #chile 
+	
+	
+
 PIX SORT
 
-	- pixsort a ameiliorer quand commence les lignes
-	
-	- clarifier 
-	
-	- vérifier que le sorting est complet
 
 	-créé une thread discrete qui cherche les max dès la selection du filtre
 	
@@ -34,66 +111,17 @@ PIX SORT
 	ajouter un mode beug de quick sort ? wrong value ... B&b
 
 
-
-MASK CREATOR WINDOW
-	- gerer le ddd faire proprement la liste des mask déjà créés
-	
-	
-MASK CREATOR
-	
-	- ajouter le  créateur A+B A-B B-A A*B /A
-	
-FILTER WINDOW 
-	
-	- probleme affichage param mask espace en trop
-	en fait il faut rajouter l'affichage du filtre en petite image
-		
-	- ajouter le numéro de leffetc premier deuxime ...
-		
-	- ajouter une barre de progrèssion
-	
-STEREO3D
-
-	-ajouter le param image
-	
-	- trouver la formule
-	
-	-faire le truc
-		
-FILTER 
-
-	creer un filtre oversampling/ downsampling avec comme param les interpollation proposée  # 
-
-	- imaginer un system de preview pour les filtre 
-		- gros pixels pour le pix par pix
-		- ligne par ligne sinon #pixsort
-		
-<<<<<<< HEAD
-	- rajouter un oversampling / downsamploing
-=======
->>>>>>> 08779ff5c498fa9b90fa43439dfe26ea93837d54
-	
-	
-	- ajouter un output de progression reglo ex t in [0,1] pour la barre de progression
-		
-MAIN WINDOW 
-	- transformer cette zone en zone de visualisation des images
-	
-	faire en sorte de la selection de l'image d'input soit la premier chose qui apparaisse pour gagner du temps
-	
-	
-	
-	tout refaire
-
-FILTER PARENT 
-
-	- -gerer les affichages dynamiques agrandissement retrecissement
-	
-	- plus gros bouttons et texte
-	-images ajustables
-	
 	
 	
 #################DONE	
+
+PIXSORT
 	- pixsort  ajouter les deux mask input output
+	
+	- pixsort a ameiliorer quand commence les lignes
+	
+	- clarifier 
+	
+	- vérifier que le sorting est complet
+	
 	
