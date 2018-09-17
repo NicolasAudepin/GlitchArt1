@@ -19,6 +19,7 @@ public class FPixelSorting extends Filter{
 	boolean[][] inputMaskMatrix;
 	boolean[][] outputMaskMatrix;
 	static ClassList classList;
+	static Color c;
 	
 	public FPixelSorting(BufferedImage buff){
 		//Ici on créé les parametres du filtre en utilisant les fonctions prédéfinits "create..." 
@@ -26,8 +27,8 @@ public class FPixelSorting extends Filter{
 		name="Pixel Sorting";
 		createMask("Input",0);
 		createMask("Output",0);
-		createSlider("amplitude",1,300,50);
-		String[] mode = {"lumière","obscure","osef"};
+		createSlider("amplitude",1,600,50);
+		String[] mode = {"numérique","réaliste","rouge","noir","hue"};
 		createButtonGroup("Modes",mode);
 		classList = MainFrame.getClassList(); //Utile pour avoir accès au Masks
 		
@@ -51,22 +52,36 @@ public class FPixelSorting extends Filter{
 		
 		System.out.println("amp"+paramValue);
 		amp = paramValue.get(2);
-		mode = paramValue.get(4)+2*paramValue.get(5);
+		mode = paramValue.get(4)+2*paramValue.get(5)+3*paramValue.get(6)+4*paramValue.get(7);
 		
 		
 	}
 	
 	private int PixValue(int R , int G , int B,int mode ){
-		//choisi la formule de classification en fonction de la valeur de mode
+		//choisi la formule de classification des pixels en fonction de la valeur de mode
 		int val=0;
-		if(mode==0){
+		if(mode==0){ //le plus classique et rapide a la fois souvent suffisant
 			val=R+G+B;
 		}
-		if(mode==1){
+		if(mode==1){ // plus réaliste que mode=0 mais plus lent , pas forcement utile
 			val = R*R+G*G+B*B;	
 		}
-		if(mode==2) {
+		if(mode==2) { // pour le test
 			val= -R;
+		}
+		if(mode==3) { // opposé direct de mode=0 
+			val= -R-G-B;
+		}
+		if(mode==4) { // classe les couleurs selon leur hue. Parrait vaguement beugué mais fait a peu près le taf
+			float[] bob; 
+			if(R==G &&G==B) {
+				val=-1;
+			}
+			else {
+				bob = Color.RGBtoHSB(R, G, B, null);
+				val=(int) (bob[0]*1000);
+		
+			}	
 		}
 		return val;
 	}
@@ -128,7 +143,7 @@ public class FPixelSorting extends Filter{
 			//System.out.println(maxline);
 			maxmat.add(maxline);
 		}
-		System.out.println(maxmat.size()+","+maxmat.get(0).size());
+		System.out.println(maxmat.size()+","+maxmat.get(2).size());
 		
 		// le travail préparatoir est fini
 		// on créé les ligne de pixels à partir des maximaux de matmax puis on les trie
@@ -170,16 +185,16 @@ public class FPixelSorting extends Filter{
 						//System.out.println("on est dans le cas");
 						marge=marge-1;
 					}
-					if (marge==0){
+					if (marge==0 || j==hei-3){
 						// c'est le moment de trier la ligne de pixel et de réinitialiser des valeurs
 						System.out.println("tri");
 						select=false;
 						int len = pixselect.size();
-						quicksort(valueSelect,pixselect,1,len-1); // tri est la fonction qui organise les pixels en fonction de leurs valeurs
+						quicksort(valueSelect,pixselect,0,len-1); // tri est la fonction qui organise les pixels en fonction de leurs valeurs
 						
 						
 						// on remplace les pixels sur l'image par les pixel triés rendus par le tri
-						for(int k=1;k<len-1;k++){
+						for(int k=0;k<len-1;k++){
 							int J = k+first;
 							if(outputMaskMatrix[i][J])
 							output.setRGB(i, J, pixselect.get(k));
