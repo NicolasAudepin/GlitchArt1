@@ -161,13 +161,30 @@ public class FilterFrame extends FrameParent {
 	}
 	
 	private void saveOutput(){
+		//Ouvre la fenetre de sauvegarde de l'image output si possible dans le dossier près selectionné
 		System.out.println("\n*** SAVING ***");
-		String path = "C:\\Users\\AUDEPIN\\Dropbox\\dessin\\Glitch_python\\Output\\"+txtSaveName.getText();
-		File outputFile;
+		String pathSurface = "C:\\Users\\AUDEPIN\\Dropbox\\dessin\\Glitch_python\\Output\\";
+		String pathOrdiFixe = "C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\dessin\\Glitch_python\\- Output"; 
+		String fileName = txtSaveName.getText();
+		String path="";
 		
-		outputFile = new File(path);
+		//on cherche à savoir si on est dans un de mes deux ordi et si c'est le cas on choisit 
+		File outputDirectory = new File(pathSurface);
+		if(outputDirectory.exists()&&outputDirectory.isDirectory()) {
+			path=pathSurface+fileName;
+		}
+		else {
+			outputDirectory = new File(pathOrdiFixe);
+			if(outputDirectory.exists()&&outputDirectory.isDirectory()) {
+				path=pathOrdiFixe+fileName;
+			}
+		}
+		
+		
+		
+		File outputFile = new File(path);
 		fChooser = new JFileChooser();
-		fChooser.setCurrentDirectory(new File("C:\\Users\\AUDEPIN\\Dropbox\\dessin\\Glitch_python\\Source"));
+		fChooser.setCurrentDirectory(outputDirectory);
 		
 		int fileValue = fChooser.showOpenDialog(fChooser);
 		
@@ -178,6 +195,7 @@ public class FilterFrame extends FrameParent {
 			System.out.println("on sauvegarde");
 			try {
 				ImageIO.write((RenderedImage)(bufOutput), "jpg", outputFile);
+				System.out.println("sauvegardé");
 			} catch (IOException e) {
 				System.out.println("!! Saving Failed !!");
 				// TODO Auto-generated catch block

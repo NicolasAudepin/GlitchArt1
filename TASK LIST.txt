@@ -4,7 +4,7 @@ GENERAL
 	vraiment
 	sinon c'est trop chiant
 
-	sauvegarde !!!
+	-sauvegarde !!!
 
 PARAM
 
@@ -99,7 +99,7 @@ NEW FILTERS
 
 PIX SORT
 
-
+	- choisir le mode de max et le trie séparement
 	-créé une thread discrete qui cherche les max dès la selection du filtre
 	
 	- ajouter differents classement de pixel 
