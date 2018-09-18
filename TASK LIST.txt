@@ -79,7 +79,7 @@ MASK CREATOR
 
 		
 FILTER 
-
+	- coder les textes qui apparaissent sur les images
 	- imaginer un system de preview pour les filtre 
 		- gros pixels pour le pix par pix
 		- ligne par ligne sinon #pixsort

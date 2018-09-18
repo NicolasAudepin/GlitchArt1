@@ -230,7 +230,9 @@ public class FilterFrame extends FrameParent {
 		System.out.print("filter index = ");
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
+		
 		bufOutput = filter.applyFilter(bufInput);
+		
 		setRenderIcon(bufOutput);
 		
 	}

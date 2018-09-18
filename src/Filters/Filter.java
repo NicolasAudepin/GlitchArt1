@@ -13,8 +13,16 @@ import Parameter.CheckBoxParameter;
 import Parameter.FilterParameter;
 import Parameter.SliderParameter;
 
+
+/**
+ * classe parente de tout les filtres 
+ * contient les bufferedImage input et output
+ * 
+ * @author AUDEPIN
+ *
+ */
 public class Filter extends StuffWithParameter{
-	
+	//
 	
 	BufferedImage input;
 	BufferedImage output;
@@ -22,10 +30,17 @@ public class Filter extends StuffWithParameter{
 	//ArrayList<FilterParameter> paramList = new ArrayList<FilterParameter>();
 	
 	
-
 	
 	
+	/** 
+	 * renvoie une BufferedImage ayant subi les transformations du filtre selectionné
+	 * Cette fonction est override differement pour chaque filtre héritant de cette classe
+	 * @author AUDEPIN
+	 * @param input l'image qui va être modifiée par le filtre
+	 * @return BufferedImage l'image qui a subit le filtre 
+	 */
 	public BufferedImage applyFilter(BufferedImage input){
+		
 		getParamValue();
 		System.out.println("*** APPLY FILTER ***");
 		this.input = input;
