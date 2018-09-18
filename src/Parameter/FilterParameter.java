@@ -6,16 +6,19 @@ public class FilterParameter {
 	private int placement;
 	int graphicalPlacement;
 	int value;
+	private String description;
 	
 	
-	public FilterParameter(String name,int placement){
+	public FilterParameter(String name,String description,int placement){
 		this.name=name;
+		this.description=description;
 		this.placement = placement;
 		this.setGraphicalPlacement(placement);					
 	}
 	
-	public FilterParameter(String name,int placement, int graphicalPlacement){
+	public FilterParameter(String name,String description,int placement, int graphicalPlacement){
 		this.name=name;
+		this.description = description;
 		this.placement = placement;
 		this.graphicalPlacement= graphicalPlacement;
 	}
@@ -50,6 +53,14 @@ public class FilterParameter {
 
 	public void setValue(int value) {
 		this.value=value;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

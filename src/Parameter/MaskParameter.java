@@ -4,9 +4,9 @@ public class MaskParameter extends FilterParameter{
 	
 	
 	int defaultValue = 0;
-	public MaskParameter(String name, int placement,int graphicalPlacement, int defaultValue) {
+	public MaskParameter(String name,String description, int placement,int graphicalPlacement, int defaultValue) {
 		
-		super(name, placement, graphicalPlacement);
+		super(name, description,placement ,graphicalPlacement);
 		this.defaultValue = defaultValue;
 	}
 	

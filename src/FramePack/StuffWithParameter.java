@@ -66,12 +66,12 @@ public class StuffWithParameter {
 		return bart;
 		
 	}
-	protected void createMask(String name, int defaultValue){
+	protected void createMask(String name, int defaultValue,String description){
 		System.out.println("*** CREATE MASK PARAM ***");
 		ArrayList<Integer> positions = getNextPos();
 		int pos=positions.get(0);
 		int graphPos= positions.get(1)+1;
-		MaskParameter param = new MaskParameter( name, pos, graphPos, defaultValue);
+		MaskParameter param = new MaskParameter( name,description, pos, graphPos, defaultValue);
 		filterParamList.add(param);
 	}
 	

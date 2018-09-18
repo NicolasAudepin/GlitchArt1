@@ -20,7 +20,7 @@ public class FPixel extends Filter {
 		
 		super(buff);
 		name="Default PixelbyPixel";
-		createMask("Mask",0);
+		createMask("Mask",0,"la zone ou s'applique le filtre");
 		classList = MainFrame.getClassList();
 	}
 	
