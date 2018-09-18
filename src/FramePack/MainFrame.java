@@ -145,8 +145,25 @@ public class MainFrame extends JFrame {
 		btnCreateMask.setBounds(485, 63, 134, 29);
 		getContentPane().add(btnCreateMask);
 		fChooser = new JFileChooser();
-		fChooser.setCurrentDirectory(new File("C:\\Users\\AUDEPIN\\Dropbox\\dessin\\Glitch_python\\Source"));
 		
+		//On regarde si on connait un des deux depository par default et on ouvre l'un d'eux si on le trouve
+		String inputDirectorySurface="C:\\Users\\AUDEPIN\\Dropbox\\-Input";
+		String inputDirectoryOrdiFixe="C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\-Input";
+		File directory = new File(inputDirectorySurface);
+		if(directory.exists() && directory.isDirectory()){
+			fChooser.setCurrentDirectory(directory);
+		}
+		else{
+			directory= new File(inputDirectoryOrdiFixe);
+			if(directory.exists() && directory.isDirectory()){
+				fChooser.setCurrentDirectory(directory);
+			}
+			else{
+				System.out.println("pas de dossier par default trouvé sur cet ordi");
+				directory= new File("");
+				fChooser.setCurrentDirectory(directory);
+			}
+		}
 		
 	}
 	

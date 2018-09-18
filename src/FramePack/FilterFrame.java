@@ -31,6 +31,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.border.LineBorder;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.FileChooserUI;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
@@ -163,46 +165,62 @@ public class FilterFrame extends FrameParent {
 	private void saveOutput(){
 		//Ouvre la fenetre de sauvegarde de l'image output si possible dans le dossier près selectionné
 		System.out.println("\n*** SAVING ***");
-		String pathSurface = "C:\\Users\\AUDEPIN\\Dropbox\\dessin\\Glitch_python\\Output\\";
-		String pathOrdiFixe = "C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\dessin\\Glitch_python\\- Output"; 
+		String pathSurface = "C:\\Users\\AUDEPIN\\Dropbox\\-Output\\";
+		String pathOrdiFixe = "C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\- Output\\"; 
 		String fileName = txtSaveName.getText();
 		String path="";
 		
 		//on cherche à savoir si on est dans un de mes deux ordi et si c'est le cas on choisit 
 		File outputDirectory = new File(pathSurface);
 		if(outputDirectory.exists()&&outputDirectory.isDirectory()) {
-			path=pathSurface+fileName;
+			path=pathSurface+fileName+".jpg";
 		}
 		else {
 			outputDirectory = new File(pathOrdiFixe);
 			if(outputDirectory.exists()&&outputDirectory.isDirectory()) {
-				path=pathOrdiFixe+fileName;
+				path=pathOrdiFixe+fileName+".jpg";
 			}
 		}
 		
 		
 		
 		File outputFile = new File(path);
+		System.out.println("path: "+path);
 		fChooser = new JFileChooser();
 		fChooser.setCurrentDirectory(outputDirectory);
+		//COPIE COLLE permet de mettre un nom de fichier par default au system de sauvegarde
+		try {
+	        FileChooserUI fcUi = fChooser.getUI();
+	        Class<? extends FileChooserUI> fcClass = fcUi.getClass();
+	        Method setFileName = fcClass.getMethod("setFileName", String.class);
+	        setFileName.invoke(fcUi, outputFile.getName());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 		
-		int fileValue = fChooser.showOpenDialog(fChooser);
+		int fileValue = fChooser.showOpenDialog(fChooser);//ouvre la fenetre de sauvegarde et renvoie une valeur quand elle se ferme
 		
-		if (outputFile.exists()){
-			System.out.println("! le nom est déjà pris !");
-		}
-		else{
-			System.out.println("on sauvegarde");
-			try {
-				ImageIO.write((RenderedImage)(bufOutput), "jpg", outputFile);
-				System.out.println("sauvegardé");
-			} catch (IOException e) {
-				System.out.println("!! Saving Failed !!");
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(fileValue == JFileChooser.APPROVE_OPTION){//verifie que on a bien validé la sauvegarde
+			outputFile=fChooser.getSelectedFile();
+			
+			if (outputFile.exists()){
+				System.out.println("! le nom est déjà pris !");
 			}
-		
+			else{
+				System.out.println("on sauvegarde");
+				try {
+					System.out.println("outputFile"+outputFile.getAbsolutePath());
+					ImageIO.write((RenderedImage)(bufOutput), "jpg", outputFile);
+					System.out.println("sauvegardé");
+				} catch (IOException e) {
+					System.out.println("!! Saving Failed !!");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			}
 		}
+		
 	}
 	
 	private void rendering(){

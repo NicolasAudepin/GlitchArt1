@@ -4,7 +4,8 @@ GENERAL
 	vraiment
 	sinon c'est trop chiant
 
-	-sauvegarde !!!
+	- séparer les classes visuelles et calculatoires pour une gestion plus facile
+
 
 PARAM
 
@@ -114,6 +115,11 @@ PIX SORT
 	
 	
 #################DONE	
+
+GENERAL
+	-sauvegarde !!!
+	
+	- mise en place de dossier par defaut pour les inputs et outputs
 
 PIXSORT
 	- pixsort  ajouter les deux mask input output
