@@ -1,6 +1,5 @@
 package FramePack;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 
@@ -10,10 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Filters.Filter;
 import Mask.Mask;
 import Mask.MaskCreator;
-import Parameter.FilterParameter;
+import Parameter.ParameterParent;
 
 import java.awt.ScrollPane;
 import java.awt.image.BufferedImage;
@@ -48,7 +46,7 @@ public class MaskCreatorFrame extends FrameParent {
 	
 	private static ClassList classList;
 	
-	private ArrayList<FilterParameter> paramList;
+	private ArrayList<ParameterParent> paramList;
 	private BufferedImage bufInput;
 	private boolean[][] maskGrid;
 	private BufferedImage bufPreview;
@@ -323,6 +321,14 @@ public class MaskCreatorFrame extends FrameParent {
 		contentPane.repaint();
 	
 		
+	}
+
+	public ArrayList<ParameterParent> getParamList() {
+		return paramList;
+	}
+
+	public void setParamList(ArrayList<ParameterParent> paramList) {
+		this.paramList = paramList;
 	}
 	
 

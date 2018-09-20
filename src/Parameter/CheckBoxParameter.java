@@ -1,12 +1,20 @@
 package Parameter;
 
-public class CheckBoxParameter extends FilterParameter{
+public class CheckBoxParameter extends ParameterParent{
 	
 	boolean defaultValue=false;
 
-	public CheckBoxParameter(String name, int placement,int graphicalPlacement, boolean defaultValue) {
+	/**
+	 * 
+	 * @param name
+	 * @param description
+	 * @param placement
+	 * @param graphicalPlacement
+	 * @param defaultValue
+	 */
+	public CheckBoxParameter(String name,String description, int placement,int graphicalPlacement, boolean defaultValue) {
 		
-		super(name, placement, graphicalPlacement);
+		super(name, description, placement, graphicalPlacement);
 		this.defaultValue=defaultValue;
 	}
 

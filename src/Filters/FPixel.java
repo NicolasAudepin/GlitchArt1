@@ -1,13 +1,11 @@
 package Filters;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import FramePack.ClassList;
 import FramePack.MainFrame;
 import Mask.Mask;
-import Parameter.FilterParameter;
 
 public class FPixel extends Filter {
 	

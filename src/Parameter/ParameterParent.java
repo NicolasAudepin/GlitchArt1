@@ -1,6 +1,11 @@
 package Parameter;
 
-public class FilterParameter {
+/**
+ * la classe dont hérite toutes mes classes paramètre
+ * @author AUDEPIN
+ *
+ */
+public class ParameterParent {
 	
 	private String name;
 	private int placement;
@@ -8,15 +13,27 @@ public class FilterParameter {
 	int value;
 	private String description;
 	
-	
-	public FilterParameter(String name,String description,int placement){
+	/**
+	 * 
+	 * @param name
+	 * @param description
+	 * @param placement
+	 */
+	public ParameterParent(String name,String description,int placement){
 		this.name=name;
 		this.description=description;
 		this.placement = placement;
 		this.setGraphicalPlacement(placement);					
 	}
 	
-	public FilterParameter(String name,String description,int placement, int graphicalPlacement){
+	/**
+	 * 
+	 * @param name
+	 * @param description
+	 * @param placement
+	 * @param graphicalPlacement
+	 */
+	public ParameterParent(String name,String description,int placement, int graphicalPlacement){
 		this.name=name;
 		this.description = description;
 		this.placement = placement;

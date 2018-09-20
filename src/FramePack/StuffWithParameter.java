@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import Parameter.ButtonGroupParameter;
 import Parameter.CheckBoxParameter;
-import Parameter.FilterParameter;
 import Parameter.MaskParameter;
+import Parameter.ParameterParent;
 import Parameter.SliderParameter;
 
 public class StuffWithParameter {
@@ -16,7 +16,7 @@ public class StuffWithParameter {
 	
 	protected String name;
 	protected ArrayList<Integer> paramValue = new ArrayList<Integer>();
-	protected ArrayList<FilterParameter> filterParamList = new ArrayList<FilterParameter>();
+	protected ArrayList<ParameterParent> filterParamList = new ArrayList<ParameterParent>();
 	
 	protected static BufferedImage deepCopy(BufferedImage bi) {
 		// to keep the input still while modifying the output 
@@ -31,7 +31,7 @@ public class StuffWithParameter {
 		System.out.println("***REFRESH PARAM VALUE***");
 		paramValue.clear();
 		for (int i=0 ; i<filterParamList.size() ; i++){
-			FilterParameter param= filterParamList.get(i);
+			ParameterParent param= filterParamList.get(i);
 				paramValue.add(param.getValue());
 				System.out.println("param: "+i+" Value: "+param.getValue());
 			
@@ -66,42 +66,72 @@ public class StuffWithParameter {
 		return bart;
 		
 	}
+	
+
+	/**
+	 * 
+	 * @param name
+	 * @param defaultValue
+	 * @param description
+	 */
 	protected void createMask(String name, int defaultValue,String description){
 		System.out.println("*** CREATE MASK PARAM ***");
 		ArrayList<Integer> positions = getNextPos();
 		int pos=positions.get(0);
 		int graphPos= positions.get(1)+1;
-		MaskParameter param = new MaskParameter( name,description, pos, graphPos, defaultValue);
+		ParameterParent param = new MaskParameter( name,description, pos, graphPos, defaultValue);
 		filterParamList.add(param);
 	}
 	
-	protected void createSlider(String name,int min, int max, int defaultValue){
+	
+	/**
+	 * 
+	 * @param name
+	 * @param min
+	 * @param max
+	 * @param defaultValue
+	 * @param description
+	 */
+	protected void createSlider(String name,int min, int max, int defaultValue,String description){
 		System.out.println("*** CREATE SLIDER PARAM ***");
 		ArrayList<Integer> positions = getNextPos();
 		int pos=positions.get(0);
 		int graphPos= positions.get(1);
-		FilterParameter param=new SliderParameter(name,pos,graphPos,min, max, defaultValue);
+		SliderParameter param=new SliderParameter(name,pos,graphPos,min, max, defaultValue, description);
 		filterParamList.add(param);
 	}
 	
-	protected void createButtonGroup(String groupName,String[] groupNamesList){
+	
+	/**
+	 * 
+	 * @param groupName
+	 * @param groupNamesList
+	 * @param description
+	 */
+	protected void createButtonGroup(String groupName,String[] groupNamesList,String description){
 		System.out.println("*** CREATE BUTTON GROUP PARAM ***");
 		ArrayList<Integer> positions = getNextPos();
 		int pos=positions.get(0);
 		int graphPos= positions.get(1);
 		for(int i=0;i<groupNamesList.length;i++){
 			
-			FilterParameter button =new ButtonGroupParameter(groupName,pos+i,groupNamesList[i],graphPos );
+			ButtonGroupParameter button =new ButtonGroupParameter(groupName,description, pos+i,groupNamesList[i],graphPos );
 			filterParamList.add(button);
 		}
 	}
 	
-	protected void createCheckBox(String name,boolean defaultValue){
+	/**
+	 * 
+	 * @param name
+	 * @param defaultValue
+	 * @param description
+	 */
+	protected void createCheckBox(String name,boolean defaultValue,String description){
 		System.out.println("*** CREATE CHECK BOX PARAM ***");
 		ArrayList<Integer> positions = getNextPos();
 		int pos=positions.get(0);
 		int graphPos= positions.get(1);
-		FilterParameter CBP = new CheckBoxParameter(name, pos, graphPos, defaultValue);
+		CheckBoxParameter CBP = new CheckBoxParameter(name, description, pos, graphPos, defaultValue);
 		filterParamList.add(CBP);
 	}
 	
@@ -112,7 +142,7 @@ public class StuffWithParameter {
 		this.name = name;
 	}
 	
-	public ArrayList<FilterParameter> getFilterParamList(){
+	public ArrayList<ParameterParent> getFilterParamList(){
 		return filterParamList;
 	}
 	

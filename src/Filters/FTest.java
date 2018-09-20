@@ -2,8 +2,6 @@ package Filters;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import Parameter.SliderParameter;
-
 public class FTest extends Filter {
 	
 
@@ -14,9 +12,9 @@ public class FTest extends Filter {
 		super(input);
 		name="Test";
 		
-		createSlider("SL1",1,  100 , 100);
+		createSlider("SL1",1,  100 , 100,"avc ton gros taxi");
 		String[] list={"0","1","2","3","444444","zz","zdz","dd"};
-		createButtonGroup("BG",list);
+		createButtonGroup("BG",list,"oui vas-y ouioui");
 	}
 	
 	public FTest(){

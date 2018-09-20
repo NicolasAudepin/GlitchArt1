@@ -1,17 +1,18 @@
 package Mask;
 
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
 import FramePack.StuffWithParameter;
-import Parameter.FilterParameter;
+
 
 public class MaskCreator extends StuffWithParameter{
 	
 	String name;
 	boolean[][] outputMask; 
 	BufferedImage bufInput;
-	ArrayList<FilterParameter> paramList;
+	ArrayList<Parameter> paramList;
 	int L;
 	int H;
 	
@@ -72,12 +73,12 @@ public class MaskCreator extends StuffWithParameter{
 	}
 
 
-	public ArrayList<FilterParameter> getParamList() {
+	public ArrayList<Parameter> getParamList() {
 		return paramList;
 	}
 
 
-	public void setParamList(ArrayList<FilterParameter> paramList) {
+	public void setParamList(ArrayList<Parameter> paramList) {
 		this.paramList = paramList;
 	}
 

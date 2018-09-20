@@ -1,14 +1,12 @@
 package FramePack;
 
 import java.awt.BorderLayout;
-import java.awt.Choice;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -18,23 +16,19 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import Mask.Mask;
 import Parameter.ButtonGroupParameter;
 import Parameter.CheckBoxParameter;
-import Parameter.FilterParameter;
+import Parameter.ParameterParent;
 import Parameter.MaskParameter;
 import Parameter.SliderParameter;
 
@@ -54,7 +48,7 @@ public class FrameParent extends JFrame {
 	ArrayList<JLabel> paramJLabelList = new ArrayList<JLabel>();
 	ArrayList<JComponent> paramJActionerList = new ArrayList<JComponent>();
 	ArrayList<JComponent> otherJActionerList = new ArrayList<JComponent>();
-	ArrayList<FilterParameter> filterParamList; // doit etre la liste des param du filtre ou maskCreator
+	ArrayList<ParameterParent> filterParamList; // doit etre la liste des param du filtre ou maskCreator
 
 	/**
 	 * Launch the application.
@@ -229,12 +223,16 @@ public class FrameParent extends JFrame {
 		}
 	}
 
+	
+	/**
+	 * 
+	 * gere la partie du frame contenant les paramètres du filtre séléctionné.
+	 * créé les JLabel et JSLidder en fonction de filterParamList
+	 * lie les sliders à leur filtre
+	 * 	
+	 * @param paramZone le nombre de pixels entre les bouttons du premier paramètre et le haut de la fenètre
+	 */
 	protected void PlaceFilterJButtons(int paramZone){
-		/* gere la partie du frame assignée au filtre séléctionné.
-		 * créé les JLabel et JSLidder en fonction de filterParamList
-		 * lie les sliders à leur filtre
-		 * 
-		*/
 		System.out.println("***PLACE FILTER JBUTTON***");
 		
 		
@@ -249,7 +247,7 @@ public class FrameParent extends JFrame {
 			//On créé tout les sliders et autre à partir de la liste des param
 			
 			// le label boby ne dépend pas du type de parametre
-			FilterParameter parameter = filterParamList.get(i);
+			ParameterParent parameter = filterParamList.get(i);
 			JLabel boby = new JLabel();
 			boby.setText(parameter.getName());
 			boby.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -359,9 +357,15 @@ public class FrameParent extends JFrame {
 		
 	}
 	
+	
+	/**
+	 * Lie les valeurs d'un JSlider et d'un JSpinner en leurs ajoutant des ChangeListener
+	 * @param slider
+	 * @param spinner
+	 */
 	protected void linkValue(JSlider slider, JSpinner spinner){
 		
-		slider.addChangeListener(new ChangeListener(){
+		slider.addChangeListener(new ChangeListener(){ //Si le slider est modifié on met à jour le spinner
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int value = slider.getValue();
@@ -371,17 +375,18 @@ public class FrameParent extends JFrame {
 			}
 		});
 		
-		spinner.addChangeListener(new ChangeListener(){
+		spinner.addChangeListener(new ChangeListener(){  //Si le spiner est modifié on met à jour le slidder
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
+				slider.setVisible(false);
 				int value = (int) spinner.getValue();
 				int max = slider.getMaximum();
 				int min = slider.getMinimum();
-				if (value>max){
+				if (value>max){ // Si on met une valeur du spinner au dessus du max du slider elle se remet au max
 					value=max;
 					spinner.setValue(max);
 				}
-				if(value<min){
+				if(value<min){ //same
 					value=min;
 					spinner.setValue(min);
 				}
@@ -392,7 +397,7 @@ public class FrameParent extends JFrame {
 				slider.setValueIsAdjusting(false);
 				System.out.println("slider to spinner" + value);
 				
-				slider.setVisible(false);
+				
 				slider.setVisible(true);
 			}
 		});

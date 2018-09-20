@@ -1,17 +1,8 @@
 package Filters ;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
 
 import FramePack.StuffWithParameter;
-import Parameter.ButtonGroupParameter;
-import Parameter.CheckBoxParameter;
-import Parameter.FilterParameter;
-import Parameter.SliderParameter;
 
 
 /**

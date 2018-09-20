@@ -12,9 +12,9 @@ public class FBitRedux extends FPixel{
 	public FBitRedux(BufferedImage buff){
 		super(buff);
 		name="Bit Redux";
-		createSlider("Simplification",0,8,2);
+		createSlider("Simplification",0,8,2,"le nombre de bits finaux remplacés. 8 étant le maximun");
 		String[] mode = {"0","1","random"};
-		createButtonGroup("Filling bit",mode);
+		createButtonGroup("Filling bit",mode,"0 remplace les bits par des 0, 1 les remplaces par des 1 et random les remplace aléatoirement.");
 	}
 
 	

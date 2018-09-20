@@ -1,14 +1,24 @@
 package Parameter;
 
-public class SliderParameter extends FilterParameter{
+public class SliderParameter extends ParameterParent{
 	private int min;
 	private int max;
 	private int defaultValue;
 	private int value;
 
-	public SliderParameter(String name,int placement ,int graphicalPlacement,int min, int max, int defaultValue) {
+	/**
+	 * 
+	 * @param name
+	 * @param placement
+	 * @param graphicalPlacement
+	 * @param min
+	 * @param max
+	 * @param defaultValue
+	 * @param description
+	 */
+	public SliderParameter(String name,int placement ,int graphicalPlacement,int min, int max, int defaultValue,String description) {
 		
-		super(name,placement,graphicalPlacement);
+		super(name,description,placement,graphicalPlacement);
 		this.min=min;
 		this.max=max;
 		this.defaultValue=defaultValue;

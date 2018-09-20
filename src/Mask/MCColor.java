@@ -13,10 +13,10 @@ public class MCColor extends MaskCreator{
 	public MCColor(BufferedImage bufInput){
 		super(bufInput);
 		name="Color";
-		createSlider("R",0,255,255);
-		createSlider("G",0,255,255);
-		createSlider("B",0,255,255);
-		createSlider("Precision",1,1000,20);
+		createSlider("R",0,255,255,"Le taux de rouge de la couleur séléctionnée");
+		createSlider("G",0,255,255,"Le taux de vert de la couleur séléctionnée");
+		createSlider("B",0,255,255,"Le taux de bleu de la couleur séléctionnée");
+		createSlider("Precision",1,1000,20,"la précision de la selection de couleur. Plus la valeure est grande plus la selection est large.");
 	}
 	
 	public boolean[][] CreateMask(){

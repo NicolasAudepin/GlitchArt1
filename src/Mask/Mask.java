@@ -22,6 +22,13 @@ public class Mask {
 		this.icon = icon;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param length
+	 * @param width
+	 * @param matrix
+	 */
 	public Mask(String name,int length,	int width,	boolean[][] matrix){
 		this.name=name;
 		this.length=length;
@@ -38,6 +45,10 @@ public class Mask {
 		createIcon(matrix);
 	}
 	
+	/**
+	 * 
+	 * @param matrix
+	 */
 	private void createIcon(boolean[][] matrix){
 		System.out.println("***CREATE ICON***");
 		BufferedImage bi= new BufferedImage(length, height, BufferedImage.TYPE_INT_RGB);

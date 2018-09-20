@@ -14,10 +14,10 @@ public class MCRandomLines extends MaskCreator{
 	public MCRandomLines(BufferedImage bufInput){
 		super(bufInput);
 		name="Random Lines";
-		createSlider("Orientation",0,180,90);
-		createSlider("Size",0,precision,(int)precision/2);
-		createSlider("Density",0,precision,(int)precision/2);
-		createCheckBox("Start selected",false);
+		createSlider("Orientation",0,180,90,"détermine en degrés l'orientation des bandes de pixels selectionnées");
+		createSlider("Size",0,precision,(int)precision/2,"Détermine la taille moyenne des bandes Selectionnées");
+		createSlider("Density",0,precision,(int)precision/2,"Détermine La taille moyenne des espaces entre bandes selectionnées");
+		createCheckBox("Start selected",false,"Coché si la première bande de pixel est selectionnée");
 	}
 	
 	public boolean[][] CreateMask(){
@@ -57,6 +57,13 @@ public class MCRandomLines extends MaskCreator{
 		
 	}
 	
+	/**
+	 * Genere l'ordre de selection des baandes de pixels
+	 * @param size
+	 * @param dens
+	 * @param firstLine
+	 * @return une liste de boolean représentant les lignes de pixels à selectionner ou non 
+	 */
 	private boolean[] generateRand(int size , int dens, int firstLine){
 		boolean[] axis = new boolean[(L+H)*2];
 		boolean state = true;

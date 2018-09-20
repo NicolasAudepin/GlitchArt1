@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Parameter.SliderParameter;
 
 public class FColorShift extends FPixel {
 	
@@ -16,7 +15,7 @@ public class FColorShift extends FPixel {
 	public FColorShift(BufferedImage input){
 		super(input);
 		name="Color Shift";
-		createSlider("Shift",0,360,0);
+		createSlider("Shift",0,360,0,"Décale toutes les couleurs sur le spectre de couleurs. 360 fait un tour complet.");
 		
 	}
 	

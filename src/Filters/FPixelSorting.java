@@ -3,8 +3,6 @@ package Filters;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Vector;
 
 import Filters.Filter;
 import FramePack.ClassList;
@@ -25,11 +23,11 @@ public class FPixelSorting extends Filter{
 		//Ici on créé les parametres du filtre en utilisant les fonctions prédéfinits "create..." 
 		super(buff);
 		name="Pixel Sorting";
-		createMask("Input",0);
-		createMask("Output",0);
-		createSlider("amplitude",1,600,50);
+		createMask("Input",0,"La zone d'ou partent le haut des lignes de pixels trié");
+		createMask("Output",0,"la zone ou sont déssiné les changements");
+		createSlider("amplitude",1,600,50,"la taille minimum des lignes de pixels(en nombre de pixels)");
 		String[] mode = {"numérique","réaliste","rouge","noir","hue"};
-		createButtonGroup("Modes",mode);
+		createButtonGroup("Modes",mode,"Chaque mode est une manière de classer les pixels differente.");
 		classList = MainFrame.getClassList(); //Utile pour avoir accès au Masks
 		
 	}

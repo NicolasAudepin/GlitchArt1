@@ -14,9 +14,9 @@ public class FFuckIt extends FPixel{
 		
 		super(buff);
 		name="Fuck It";
-		createSlider("Violence",0,100,0);
+		createSlider("Violence",0,100,0,"Plus la violence est élevée plus les couleurs seront variée et chaotiques.");
 		String[] mode = {"violente","calme"};
-		createButtonGroup("Modes",mode);
+		createButtonGroup("Modes",mode,"Violente sature les couleurs et les met à lulinosité fixe. Calme laisse leurs saturation et luminosité d'orignies.");
 		
 	}
 	

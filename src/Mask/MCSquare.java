@@ -2,6 +2,13 @@ package Mask;
 
 import java.awt.image.BufferedImage;
 
+
+/**
+ * Le créateur de mask de selection réctangulaire.
+ * @see MaskCreator
+ * @author AUDEPIN
+ *
+ */
 public class MCSquare extends MaskCreator{
 	
 	public MCSquare(){
@@ -12,10 +19,10 @@ public class MCSquare extends MaskCreator{
 	public MCSquare(BufferedImage bufInput){
 		super(bufInput);
 		name="Square";
-		createSlider("Top",0,H,(int)(H/4));
-		createSlider("Bottom",0,H,(int)(H/2));
-		createSlider("Left",0,L,(int)(L/4));
-		createSlider("Right",0,L,(int)(L/2));
+		createSlider("Top",0,H,(int)(H/4),"La hauteur de la frontière supèrieur du réctangle selectionné");
+		createSlider("Bottom",0,H,(int)(H/2),"La hauteur de la frontière infèrieur du rectangle selectionné");
+		createSlider("Left",0,L,(int)(L/4),"La position de la gauche du rectangle");
+		createSlider("Right",0,L,(int)(L/2),"Laposition de la droite du rectangle");
 		
 	}
 	public boolean[][] CreateMask(){

@@ -1,14 +1,21 @@
 package Parameter;
 
-public class ButtonGroupParameter extends FilterParameter{
+public class ButtonGroupParameter extends ParameterParent{
 	
 	String valueName;
 	int value;
 
 	
-
-	public ButtonGroupParameter(String name, int placement,String valueName,int gaphicalPlacement) {
-		super(name, placement);
+	/**
+	 * 
+	 * @param name
+	 * @param description
+	 * @param placement
+	 * @param valueName
+	 * @param gaphicalPlacement
+	 */
+	public ButtonGroupParameter(String name,String description, int placement,String valueName,int gaphicalPlacement) {
+		super(name, description, placement);
 		this.valueName=valueName;
 		this.graphicalPlacement=gaphicalPlacement;
 		

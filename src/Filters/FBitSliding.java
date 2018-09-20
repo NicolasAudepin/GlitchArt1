@@ -1,13 +1,9 @@
 package Filters;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Parameter.ButtonGroupParameter;
-import Parameter.FilterParameter;
-import Parameter.SliderParameter;
 
 public class FBitSliding extends FPixel {
 	
@@ -24,11 +20,11 @@ public class FBitSliding extends FPixel {
 		super(buff);
 		name="Bit Sliding";
 		
-		createSlider("Bit Offset", 0 , 64 , 0);
-		createSlider("X Sliding", -2000 , 2000 , 0);
-		createSlider("Y Sliding", -2000 , 2000 , 0);
-		createButtonGroup("mode", modes);
-		createCheckBox("Blur",false);
+		createSlider("Bit Offset", 0 , 64 , 0,"le nombre de bits de décalage vers la droite");
+		createSlider("X Sliding", -200 , 200 , 0,"la variation d'offset selon l'axe horizontal");
+		createSlider("Y Sliding", -200 , 200 , 0,"la variation d'offset selon l'axe vertical");
+		createButtonGroup("mode", modes,"RGB est le mode de base. ARGB est le mode ou la transparence est prise en compte. Original est le mode de déplacement beugué original.");
+		createCheckBox("Blur",false,"floute les transition entre les zones d'offset different.");
 	}
 	
 	public FBitSliding(){
@@ -75,7 +71,7 @@ public class FBitSliding extends FPixel {
 			
 		}
 
-		offset1= baseOffset+(int)(XSliding/10*(i+n)/length+YSliding/10*(j+n)/height);
+		offset1= baseOffset+(int)(XSliding*(i+n)/length+YSliding*(j+n)/height);
 		
 		if(mode==1){
 			int offset=offset1 % 24;
