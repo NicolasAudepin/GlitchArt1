@@ -7,6 +7,8 @@ GENERAL
 	- séparer les classes visuelles et calculatoires pour une gestion plus facile
 
 
+	revoir le system de sauvegarde
+	
 PARAM
 
 	
@@ -91,6 +93,8 @@ FILTER
 		
 
 NEW FILTERS
+	
+	-andy warold
 	
 	- rajouter un oversampling / downsamploing
 	

@@ -1,5 +1,4 @@
 package FramePack;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,16 +9,10 @@ import javax.swing.border.EmptyBorder;
 
 import Filters.FBitSliding;
 import Filters.Filter;
-import Parameter.ButtonGroupParameter;
-import Parameter.CheckBoxParameter;
-import Parameter.FilterParameter;
-import Parameter.SliderParameter;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -27,30 +20,21 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 import javax.swing.JList;
-import java.awt.Component;
-
-import javax.swing.AbstractButton;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.border.LineBorder;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FileChooserUI;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 
 public class FilterFrame extends FrameParent {
@@ -166,7 +150,7 @@ public class FilterFrame extends FrameParent {
 		//Ouvre la fenetre de sauvegarde de l'image output si possible dans le dossier près selectionné
 		System.out.println("\n*** SAVING ***");
 		String pathSurface = "C:\\Users\\AUDEPIN\\Dropbox\\-Output\\";
-		String pathOrdiFixe = "C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\- Output\\"; 
+		String pathOrdiFixe = "C:\\Users\\Nicolas2\\Desktop\\Manoir du génie\\Dropbox\\-Output\\"; 
 		String fileName = txtSaveName.getText();
 		String path="";
 		
@@ -223,6 +207,9 @@ public class FilterFrame extends FrameParent {
 		
 	}
 	
+	/**
+	 * génere et fait affiché l'image passée à travers le filtre a partir des paramètres
+	 */
 	private void rendering(){
 		System.out.println("\n");
 		System.out.println("*** RENDERING ***");
@@ -237,6 +224,10 @@ public class FilterFrame extends FrameParent {
 		
 	}
 
+	/**
+	 * créé la fenètre du filtre et place les differents Jcomponents imobiles tels que l'image et les bouton save render refresh
+	 * 
+	 */
 	private void initialize(){
 		System.out.println("*** INITIALIZE ***");
 		
@@ -324,7 +315,7 @@ public class FilterFrame extends FrameParent {
 		btnAddEffect.setBounds(908, 95, 105, 29);
 		btnAddEffect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//On a cliqué sur le bouton save
+				//On a cliqué sur le bouton Add Effect
 				addFilter();
 			}
 		});
@@ -338,17 +329,28 @@ public class FilterFrame extends FrameParent {
 		System.out.println("***END INITIALIZE***");
 	}	
 	
+	
 	private void addFilter(){
 		MF.addFilter();
 	}
 	
+	/**
+	 * Ce déclenche lorsque un nouveaux filtre est choisi.
+	 * efface les anciens bouttons de paramètre et fait afficher les nouveaux.
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
 	private void newFilterChoosen() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		System.out.println("\n***NEW FILTER CHOOSEN***");
-		cleanFilterJButtons();
+		
+		cleanFilterJButtons();//fait disparaitre les Jbuttons de l'ancien filtre
+		
 		int index = FilterList.getSelectedIndex();
-		Class<? extends Filter> filterclass = classList.getFilterList().get(index);
+		Class<? extends Filter> filterclass = classList.getFilterList().get(index);//récupère la classe associée au filtre sélèctionné
 		System.out.println("trying to change the filter");
-		try {
+		try { // instancie le filtre puis met en place ses JButtons et met a jour le nom de fichier par default
 			filter=filterclass.getDeclaredConstructor(BufferedImage.class).newInstance(bufInput);
 			System.out.println("filter class changed ");
 			filterParamList=filter.getFilterParamList();
@@ -365,10 +367,16 @@ public class FilterFrame extends FrameParent {
 	}
 	
 	private void refreshInput(){
+		//TODO mettre de l'ordre dans ce bordel
 		ArrayList<FilterFrame> FFL = MF.getFilterFrameList();
 		BufferedImage bf  = FFL.get(nbFilter-1).getBufOutput();
 		setBufInput(bf);
 	}
+	
+	/**
+	 * créé le nom par default du fichier pour la sauvegarde à partir des valeurs des JActioners
+	 * @return
+	 */
 	
 	private String createFileName(){
 		String txt=this.filter.getName()+" ";

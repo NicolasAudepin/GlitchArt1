@@ -1,12 +1,17 @@
 package FramePack;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -20,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -45,10 +51,22 @@ public class FrameParent extends JFrame {
 	
 	
 	private static ClassList classList;
-	ArrayList<JLabel> paramJLabelList = new ArrayList<JLabel>();
+	/**
+	 * la liste des JLabel des nom des paramètres
+	 */
+	ArrayList<JLabel> paramJLabelList = new ArrayList<JLabel>(); 
+	
+	/**
+	 * La liste des JLabel des descriptions de parametres
+	 */
+	ArrayList<JTextArea> paramDescrtiptionJLabelList = new ArrayList<JTextArea>(); 
 	ArrayList<JComponent> paramJActionerList = new ArrayList<JComponent>();
 	ArrayList<JComponent> otherJActionerList = new ArrayList<JComponent>();
-	ArrayList<ParameterParent> filterParamList; // doit etre la liste des param du filtre ou maskCreator
+	
+	/**
+	 * doit etre la liste des param du filtre ou maskCreator selectionné
+	 */
+	ArrayList<ParameterParent> filterParamList; 
 
 	/**
 	 * Launch the application.
@@ -57,7 +75,7 @@ public class FrameParent extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameParent frame = new FrameParent();
+					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,10 +102,17 @@ public class FrameParent extends JFrame {
 		System.out.println("****CETTE METHODE DEVRAIT ETRE OVERRIDE!!!***");
 	}
 	
+	/**
+	 * retire tout les JComponents en lien avec le filtre
+	 */
 	protected void cleanFilterJButtons(){
 		System.out.println("***CLEANING JBUTTON***");
 		for (int i=0; i < paramJActionerList.size() ;i++){
 			contentPane.remove(paramJActionerList.get(i));
+		}
+		
+		for (int i=0; i < paramDescrtiptionJLabelList.size() ;i++){
+			contentPane.remove(paramDescrtiptionJLabelList.get(i));
 		}
 		
 		for (int i=0; i < otherJActionerList.size() ;i++){
@@ -96,22 +121,67 @@ public class FrameParent extends JFrame {
 		
 		for (int i=0; i < paramJLabelList.size() ;i++){
 			contentPane.remove(paramJLabelList.get(i));
-		
-			
-			contentPane.validate();
-			contentPane.repaint();
-			//contentPane.remove(betty);
+
 		}
+		
+		contentPane.validate();
+		contentPane.repaint();
 		
 	}
 	
+	/**
+	 * Ajoute tout les ActionListener des paramètres 
+	 */
 	protected void setJActionerAction(){
 		System.out.println("***SET J-ACTIONERS ACTIONS***");
 
 		for (int i=0; i < paramJActionerList.size() ;i++){
+			
+			//On met en place les actionListener des noms des param pour qu'ils affiches les descriptions
+			JLabel boby = paramJLabelList.get(i);
+			JTextArea barn = paramDescrtiptionJLabelList.get(i);
+			boby.addMouseListener(new MouseListener() {
+
+
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					barn.setOpaque(true);
+					barn.setVisible(true);
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+				
+					barn.setVisible(false);
+					
+				}
+
+				//Les trois Overrides sont la sinon le mouse listener boude
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+
+				
+			});
+			
 			int ibis = i ;
 			JComponent actioner =paramJActionerList.get(i);
-			
 			if(actioner.getClass() == JComboBox.class){
 				//Mask Selection Actioner
 				@SuppressWarnings("unchecked")
@@ -228,6 +298,7 @@ public class FrameParent extends JFrame {
 	 * 
 	 * gere la partie du frame contenant les paramètres du filtre séléctionné.
 	 * créé les JLabel et JSLidder en fonction de filterParamList
+	 * Créé aussi les JLabel invisibles des descriptions
 	 * lie les sliders à leur filtre
 	 * 	
 	 * @param paramZone le nombre de pixels entre les bouttons du premier paramètre et le haut de la fenètre
@@ -239,23 +310,44 @@ public class FrameParent extends JFrame {
 		paramJLabelList = new ArrayList<JLabel>();
 		paramJActionerList = new ArrayList<JComponent>();
 		otherJActionerList = new ArrayList<JComponent>();
+		paramDescrtiptionJLabelList = new ArrayList<JTextArea>(); 
 		ArrayList<String> buttonGroupNameList= new ArrayList<String>();
 		ArrayList<ButtonGroup> buttonGroupList= new ArrayList<ButtonGroup>();
 		
 		System.out.println("nb param "+filterParamList.size());
-		for(int i=0; i < filterParamList.size() ;i++){
-			//On créé tout les sliders et autre à partir de la liste des param
+		for(int i=0; i < filterParamList.size() ;i++){ //On créé tout les sliders et autre à partir de la liste des param
 			
+			// boby est le JLabel qui affiche le nom du paramètre 
 			// le label boby ne dépend pas du type de parametre
 			ParameterParent parameter = filterParamList.get(i);
 			JLabel boby = new JLabel();
 			boby.setText(parameter.getName());
-			boby.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			boby.setFont(new Font("Consolas", Font.PLAIN, 18));
 
 			boby.setBounds(15, paramZone +parameter.getGraphicalPlacement()*(btnHeigth + Vspace), lblLength, btnHeigth);
 			boby.setHorizontalAlignment(SwingConstants.RIGHT);
 			paramJLabelList.add(boby);
 			contentPane.add(boby);
+			
+			// barnabé est le JLabel de la description qui apparait quand la souris passe sur boby
+			JTextArea barnabe = new JTextArea();
+			barnabe.setText(parameter.getDescription());
+			System.out.println(barnabe.getText());
+			barnabe.setFont(new Font("Consolas", Font.PLAIN, 14));
+			barnabe.setBounds(15, paramZone +parameter.getGraphicalPlacement()*(btnHeigth + Vspace)-btnHeigth*2, sliderLength, btnHeigth*2);
+			barnabe.setForeground(Color.WHITE);
+			barnabe.setBackground(Color.DARK_GRAY);
+			paramDescrtiptionJLabelList.add(barnabe);
+			barnabe.setVisible(false);
+			barnabe.setLineWrap(true);
+			barnabe.setWrapStyleWord(true);
+			barnabe.setAutoscrolls(true);
+			barnabe.setMargin(new Insets(10, 10, 10, 10));
+			
+			contentPane.add(barnabe);
+			
+			
+			
 			
 			if (parameter.getClass() == MaskParameter.class){
 				MaskParameter param = (MaskParameter) filterParamList.get(i);
