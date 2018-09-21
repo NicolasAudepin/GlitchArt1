@@ -6,8 +6,7 @@ GENERAL
 
 	- séparer les classes visuelles et calculatoires pour une gestion plus facile
 
-
-	revoir le system de sauvegarde
+	- gerer les tailles de fenetres differents et tout
 	
 PARAM
 
@@ -22,7 +21,7 @@ PARAM
 
 MASK CREATOR WINDOW
 	- gerer le ddd faire proprement la liste des mask déjà créés
-	
+	  metre des couleurs differents au petite preview des mask... faire ça bien
 
 
 
@@ -122,6 +121,8 @@ PIX SORT
 
 GENERAL
 	-sauvegarde !!!
+	revoir le system de sauvegarde
+	
 	
 	- mise en place de dossier par defaut pour les inputs et outputs
 
