@@ -10,7 +10,7 @@ import Parameter.FilterParameter;
 import Parameter.SliderParameter;
 
 public class FBitSliding extends FPixel {
-	
+	//TODO extends filter et pas ça
 	int maskNb;
 	int baseOffset=0;
 	int XSliding=0;

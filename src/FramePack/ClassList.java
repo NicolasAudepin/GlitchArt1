@@ -11,6 +11,7 @@ import Filters.FPixelSorting;
 import Filters.FTest;
 import Filters.Filter;
 import Mask.MCColor;
+import Mask.MCCombinaison;
 import Mask.MCRandomLines;
 import Mask.MCSquare;
 import Mask.Mask;
@@ -83,6 +84,7 @@ public class ClassList {
 		MCList.add(MCSquare.class);
 		MCList.add(MCColor.class);
 		MCList.add(MCRandomLines.class);
+		MCList.add(MCCombinaison.class);
 		
 		for (Class<? extends MaskCreator>c:MCList){
 			
