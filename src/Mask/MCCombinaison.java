@@ -26,17 +26,18 @@ public class MCCombinaison extends MaskCreator{
 		name="Combinaison";
 		//TODO régler ça avec la fusion
 		String[] operations = {"A+B","A*B","AxB","A\\B","B\\A","-A"};		
-		createMask("inputA", 0);
+		/*createMask("inputA", 0);
 		createMask("inputB", 0);
 		createButtonGroup("Operation",operations);
-		/*createMask("Mask A",0,"Le premier mask de l'opération. Si l'opération est -A c'est ce mask qui est inversé");
+		*/
+		createMask("Mask A",0,"Le premier mask de l'opération. Si l'opération est -A c'est ce mask qui est inversé");
 		
 		createMask("Mask B",0,"Le second mask de l'opération. Ce masque est ignoré lorsque l'on choisi -A");
 		
 		createButtonGroup("Operation",operations,"A+B selectionne les pixels appartenant à au moins un filtre. A*B selectionne les pixels appartenant au deux filtres"
 				+ "AxB selectionne les pixels appartenant a un Mask seulement A\\B selectionne ceux qui apparttiennent à A mais pas à B"
 				+ "-A selectionne ceux qui n'appartiennent pas à A");
-		*/
+		
 	}
 	
 	public boolean[][] CreateMask(){
