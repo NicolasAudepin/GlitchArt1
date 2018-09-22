@@ -26,6 +26,7 @@ public class StuffWithParameter {
 		 return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 		}
 	
+	
 	protected void RefreshParamValue(){
 		//this is not overriden
 		System.out.println("***REFRESH PARAM VALUE***");
