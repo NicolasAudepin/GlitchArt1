@@ -104,7 +104,13 @@ NEW FILTERS
 	
 	-creer un filtre oversampling/ downsampling avec comme param les interpollation proposée  #chile 
 	
+	FAIRE DU SALE BORDEL 
+	jpg png errors 
 	
+	fb compression 
+	
+		
+
 
 PIX SORT
 

@@ -32,7 +32,7 @@ public class Filter extends StuffWithParameter{
 	 */
 	public BufferedImage applyFilter(BufferedImage input){
 		
-		getParamValue();
+		RefreshParamValue();
 		System.out.println("*** APPLY FILTER ***");
 		this.input = input;
 		this.output = deepCopy(input);
