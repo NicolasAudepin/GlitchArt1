@@ -27,7 +27,7 @@ public class FFuckIt extends FPixel{
 	}
 	
 
-	@Override
+	
 	protected void getParamValue(){
 		RefreshParamValue();
 		violence = paramValue.get(1);

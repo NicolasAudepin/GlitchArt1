@@ -376,6 +376,7 @@ public class FrameParent extends JFrame {
 				betty.setPaintTicks(true);
 				
 				JSpinner beth = new JSpinner();
+				beth.setFont(new Font("Consolas", Font.PLAIN, 16));
 				beth.setBounds(lblLength+2*Vspace + sliderLength, paramZone +param.getGraphicalPlacement()*(btnHeigth + Vspace), 50, btnHeigth);
 
 				otherJActionerList.add(beth);
@@ -390,6 +391,7 @@ public class FrameParent extends JFrame {
 				CheckBoxParameter param = (CheckBoxParameter) filterParamList.get(i);
 								
 				JCheckBox bianca= new JCheckBox();
+				
 				bianca.setText("");
 				bianca.setSelected(param.getDefaultValue());
 				bianca.setBounds(lblLength+2*Vspace, paramZone +param.getGraphicalPlacement()*(btnHeigth + Vspace), 50, btnHeigth);
@@ -412,9 +414,10 @@ public class FrameParent extends JFrame {
 					buttonGroupList.add(bertha);
 					buttonGroupNameList.add(param.getName());
 				}
+				billy.setFont(new Font("Consolas", Font.PLAIN, 16));
 				billy.setText(param.getValueName());
 				billy.setName(param.getValueName());
-				billy.setBounds(lblLength+2*Vspace+bertha.getButtonCount()*110, paramZone +param.getGraphicalPlacement()*(btnHeigth + Vspace), 100, btnHeigth);
+				billy.setBounds(lblLength+2*Vspace+bertha.getButtonCount()*90, paramZone +param.getGraphicalPlacement()*(btnHeigth + Vspace), 80, btnHeigth);
 				bertha.add(billy);
 				System.out.print(billy.getName());
 				System.out.println(" "+i+" "+param.getPlacement());

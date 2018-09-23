@@ -32,7 +32,6 @@ public class FBitSliding extends FPixel {
 		super();
 		name="Bit Sliding";
 	}
-	
 	@Override
 	protected void getParamValue(){
 		RefreshParamValue();

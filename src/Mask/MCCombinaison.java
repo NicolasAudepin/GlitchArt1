@@ -43,22 +43,22 @@ public class MCCombinaison extends MaskCreator{
 	public boolean[][] CreateMask(){
 		System.out.println("*** Creation Mask Combinaison");
 		boolean[][] matrix = new boolean[L][H];
-		RefreshParamValue();
+		ArrayList<Integer> treatedValue = getTreatedParamValue();
 		
-		int maskANb = paramValue.get(0); //le premier mask
+		int maskANb = treatedValue.get(0); //le premier mask
 		System.out.println("oui vas y ouioui"+maskANb);
 		ArrayList<Mask> list= classList.getMaskList();
 		Mask maskA = list.get(maskANb);
 		boolean[][] matA= maskA.getMatrix();
 		
-		int maskBNb = paramValue.get(1); // le second mask
+		int maskBNb = treatedValue.get(1); // le second mask
 		Mask maskB = classList.getMaskList().get(maskBNb);
 		boolean[][] matB = maskB.getMatrix();
 		
-		int operation = paramValue.get(2); // le param opération
+		int operation = treatedValue.get(2); // le param opération
 		
-		if(operation == 0){ // A+B
-			System.out.println("operation 0");
+		if(operation == 1){ // A+B
+			//System.out.println("operation A+B");
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] || matA[i][j]){
@@ -72,8 +72,8 @@ public class MCCombinaison extends MaskCreator{
 		}
 		
 		
-		if(operation == 1){ // A*B
-			System.out.println("operation 1");
+		if(operation == 2){ // A*B
+			//System.out.println("operation A*B");
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] && matA[i][j]){
@@ -86,7 +86,7 @@ public class MCCombinaison extends MaskCreator{
 			}
 		}
 		
-		if(operation == 2){ // A xor B
+		if(operation == 3){ // A xor B
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if((matB[i][j] && (matA[i][j]==false))||(matA[i][j] && (matB[i][j]==false))){
@@ -99,7 +99,7 @@ public class MCCombinaison extends MaskCreator{
 			}
 		}
 		
-		if(operation == 3){ // A\\B
+		if(operation == 4){ // A\\B
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if((matB[i][j]==false) && matA[i][j]){
@@ -112,7 +112,7 @@ public class MCCombinaison extends MaskCreator{
 			}
 		}
 		
-		if(operation == 4){ // B\\A
+		if(operation == 5){ // B\\A
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] && (matA[i][j]==false)){
@@ -125,7 +125,7 @@ public class MCCombinaison extends MaskCreator{
 			}
 		}
 		
-		if(operation == 5){ // -A
+		if(operation == 6){ // -A
 			for(int i=0;i<L;i++){
 				for(int j = 0; j<H; j++){
 					if(matB[i][j]==false ){

@@ -33,6 +33,7 @@ public class FPixelSorting extends Filter{
 	}
 	
 	protected void getParamValue(){
+		//TODO remplacer cette fonction par une utilisant les proceced param value
 		//initialise les valeurs des paramètres définits en entete à partir de la liste de int fournie par RefrsehParamValue
 
 		RefreshParamValue();//Hérité de la classe Filter
@@ -115,7 +116,7 @@ public class FPixelSorting extends Filter{
 		}// "matrix" est la matrice des valeurs de pixels 
 		
 		
-		System.out.println(matrix.size()+","+matrix.get(0).size());
+		System.out.println("Value matrix size: s"+matrix.size()+","+matrix.get(0).size());
 		
 		//création d'une autre matrice maxmat
 		//elle contient un  true a chaque maximum local des colones de la matrice des valeurs de la photo et un false sinon
@@ -129,9 +130,11 @@ public class FPixelSorting extends Filter{
 			maxline.add(false);
 			for( int j=2 ; j<hei-1;j++){
 				Boolean pix = false;
-				if (line.get(j)>line.get(j-1)){
-					if(line.get(j)>line.get(j+1)){
-						pix =true;
+				if (inputMaskMatrix[i][j]){
+					if (line.get(j)>line.get(j-1)){
+						if(line.get(j)>line.get(j+1)){
+							pix =true;
+						}
 					}
 				}
 				maxline.add(pix);
@@ -162,7 +165,7 @@ public class FPixelSorting extends Filter{
 			for(int j=1 ; j<hei-2;j++){
 				// on on décide de creer une ligne de pixel trier à cet endroit tant que select = true la ligne continue
 				if (select==false && maxline.get(j) && inputMaskMatrix[i][j]){
-						System.out.println("début le ligne");
+						//System.out.println("début le ligne");
 						pixselect = new ArrayList<Integer>();
 						valueSelect = new ArrayList<Integer>();
 						select= true;
@@ -185,7 +188,7 @@ public class FPixelSorting extends Filter{
 					}
 					if (marge==0 || j==hei-3){
 						// c'est le moment de trier la ligne de pixel et de réinitialiser des valeurs
-						System.out.println("tri");
+						//System.out.println("tri");
 						select=false;
 						int len = pixselect.size();
 						quicksort(valueSelect,pixselect,0,len-1); // tri est la fonction qui organise les pixels en fonction de leurs valeurs

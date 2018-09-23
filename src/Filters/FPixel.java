@@ -28,17 +28,17 @@ public class FPixel extends Filter {
 		name="Default Pixel by Pixel";
 	}
 	
-	@Override
-	protected void getParamValue(){
-		RefreshParamValue();
-	}
 	
+	protected void getParamValue(){
+		
+	}
 	
 	int pixelFilter(int ARGB , ArrayList<Integer> args,int i,int j){
 		
 		int ARGB2 = ARGB;
 		return ARGB2;
 	}
+	
 	@Override
 	public BufferedImage applyFilter(BufferedImage input){
 		System.out.println("*** APPLY PIXEL BY PIXEL ***");

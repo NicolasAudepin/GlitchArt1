@@ -4,19 +4,20 @@ GENERAL
 	vraiment
 	sinon c'est trop chiant
 
-	- séparer les classes visuelles et calculatoires pour une gestion plus facile
+	- séparer les classes visuelles et calculatoires pour une gestion plus facile 
+	+ essayer de les mettre dans des classes differentes pour faciliter la réutilisation sur android
 
 	- gerer les tailles de fenetres differents et tout
 	
 PARAM
-
 	
-	- ajouter description au param 
-	+  |?| button pour acceder 	au descriptions a coté du nom du param
+	-ajouter un truc stylé de selection de couleurs
 	
-	-ajouter fonction pour facilité de getvValueParam des selections dans une liste
-	 parce que la c'est chiant de devoir tout modifier dès que je veux rajouter un mode
-
+	-selection de pavé de text
+	
+	-selection d'image
+	
+	-selection de formules ?
 
 
 MASK CREATOR WINDOW
@@ -75,7 +76,7 @@ STEREO3D
 MASK CREATOR
 	
 	- ajouter le  créateur A+B A-B B-A A*B /A
-
+	
 
 
 		
@@ -92,8 +93,12 @@ FILTER
 		
 
 NEW FILTERS
+
+	filtre text on ecrit un text et il apparais sur l'image  et chaque lettre a la couleur de ce qu'il y a en dessous
 	
-	-andy warold
+	filtre dephasage
+	
+	-andy warold sampling modulo pour creer les sous images
 	
 	- rajouter un oversampling / downsamploing
 	
@@ -118,6 +123,16 @@ PIX SORT
 	
 	
 #################DONE	
+
+PARAM
+		
+	- ajouter description au param 
+	+  |?| button pour acceder 	au descriptions a coté du nom du param
+
+	
+	-ajouter fonction pour facilité de getvValueParam des selections dans une liste
+	 parce que la c'est chiant de devoir tout modifier dès que je veux rajouter un mode
+	
 
 GENERAL
 	-sauvegarde !!!
