@@ -18,6 +18,8 @@ PARAM
 	-selection d'image
 	
 	-selection de formules ?
+	
+	
 
 
 MASK CREATOR WINDOW
@@ -94,9 +96,9 @@ FILTER
 
 NEW FILTERS
 
-	filtre text on ecrit un text et il apparais sur l'image  et chaque lettre a la couleur de ce qu'il y a en dessous
+	-filtre text on ecrit un text et il apparais sur l'image  et chaque lettre a la couleur de ce qu'il y a en dessous
 	
-	filtre dephasage
+	-filtre dephasage
 	
 	-andy warold sampling modulo pour creer les sous images
 	
@@ -104,7 +106,9 @@ NEW FILTERS
 	
 	-creer un filtre oversampling/ downsampling avec comme param les interpollation proposée  #chile 
 	
+	-filter problème de variables
 	
+	-filter lignes paraleles comme sur meuf tmtc
 
 PIX SORT
 
