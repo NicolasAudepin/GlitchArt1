@@ -131,6 +131,8 @@ PIX SORT
 		- RGB
 		- custom?
 		
+	- optimiser les if du calcul des valeurs pour les mettre avant les boucles for 
+		
 	ajouter un mode beug de quick sort ? wrong value ... B&b
 
 

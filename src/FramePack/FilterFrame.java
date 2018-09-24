@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.border.EmptyBorder;
@@ -85,6 +86,7 @@ public class FilterFrame extends FrameParent {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		System.out.println("*** filterFrame MAIN ***");
 		EventQueue.invokeLater(new Runnable() {
@@ -103,9 +105,13 @@ public class FilterFrame extends FrameParent {
 		
 		
 	}
+	*/
 
 	/**
-	 * Create the frame.
+	 * créé la frame et l'initialise
+	 * @param buf l'image d'input
+	 * @param MF la MainFrame de ce filtre 
+	 * @param nbFilter la position de ce filtre dans la liste des filtres de la MF
 	 */
 	public FilterFrame(BufferedImage buf, MainFrame MF, int nbFilter){
 		System.out.println("*** FILTERFRAME creator(buf) ***");
@@ -239,41 +245,50 @@ public class FilterFrame extends FrameParent {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		//le JButton pour faire les rendus
 		JButton btnRender = new JButton("Render");
-		btnRender.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRender.setBounds(line1, line1, btnLenght, btnHeigth);
+		btnRender.setFont(new Font("Consolas", Font.PLAIN, 20));
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rendering();
 			}
 		});
-		
-		btnRender.setBounds(line1, line1, btnLenght, btnHeigth);
 		contentPane.add(btnRender);
 		
+		
+		//le JButton de sauvegarde
 		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Consolas", Font.PLAIN, 20));
+		btnSave.setBounds(line1*3+btnLenght*2, line1, btnLenght, btnHeigth);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//On a cliqué sur le bouton save
 				saveOutput();
 			}
 		});
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnSave.setBounds(line1*3+btnLenght*2, line1, btnLenght, btnHeigth);
 		contentPane.add(btnSave);
 		
+		
+		
+		// La zone de preview du nom du fichier 
 		txtSaveName = new JTextField();
 		txtSaveName.setText(outputFileName);
+		txtSaveName.setFont(new Font("Consolas", Font.PLAIN, 15));
 		txtSaveName.setBounds(line1*4+btnLenght*3, line1, savetxtLength, btnHeigth);
 		contentPane.add(txtSaveName);
 		
-		
+		// La zone de preview de l'image
 		lblRender.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRender.setIcon(null);
 		refreshRenderPosition();
 		contentPane.add(lblRender);
 		
+		// Le JButton qui ré intialise l'input
 		JButton btnRefreshInput = new JButton("Refresh Input");
 		btnRefreshInput.setBounds(line1*2+btnLenght, line1, btnLenght, btnHeigth);
+		btnRefreshInput.setFont(new Font("Consolas", Font.PLAIN, 20));
 		btnRefreshInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//On a cliqué sur le bouton save
@@ -286,6 +301,7 @@ public class FilterFrame extends FrameParent {
 		//Filter Selection
 		FilterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		FilterList.setBackground(Color.WHITE);
+		FilterList.setFont(new Font("Consolas", Font.PLAIN, 15));
 		FilterList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		FilterList.setBounds(762, line1, 148, JListHeigth);
 		setFilterJList();
@@ -324,6 +340,8 @@ public class FilterFrame extends FrameParent {
 		lblFilternb.setBounds(925, 14, 69, 20);
 		contentPane.add(lblFilternb);
 		
+		JProgressBar progressBar = new JProgressBar(0,100);
+		progressBar.setBounds(x, y, width, height);
 		
 		System.out.println("***END INITIALIZE***");
 	}	
