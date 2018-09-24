@@ -60,6 +60,7 @@ public class MCCombinaison extends MaskCreator{
 		if(operation == 1){ // A+B
 			//System.out.println("operation A+B");
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] || matA[i][j]){
 						matrix[i][j] = true;
@@ -75,6 +76,7 @@ public class MCCombinaison extends MaskCreator{
 		if(operation == 2){ // A*B
 			//System.out.println("operation A*B");
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] && matA[i][j]){
 						matrix[i][j] = true;
@@ -88,6 +90,7 @@ public class MCCombinaison extends MaskCreator{
 		
 		if(operation == 3){ // A xor B
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if((matB[i][j] && (matA[i][j]==false))||(matA[i][j] && (matB[i][j]==false))){
 						matrix[i][j] = true;
@@ -101,6 +104,7 @@ public class MCCombinaison extends MaskCreator{
 		
 		if(operation == 4){ // A\\B
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if((matB[i][j]==false) && matA[i][j]){
 						matrix[i][j] = true;
@@ -114,6 +118,7 @@ public class MCCombinaison extends MaskCreator{
 		
 		if(operation == 5){ // B\\A
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if(matB[i][j] && (matA[i][j]==false)){
 						matrix[i][j] = true;
@@ -127,6 +132,7 @@ public class MCCombinaison extends MaskCreator{
 		
 		if(operation == 6){ // -A
 			for(int i=0;i<L;i++){
+				setComplition((double)i/L);
 				for(int j = 0; j<H; j++){
 					if(matB[i][j]==false ){
 						matrix[i][j] = true;

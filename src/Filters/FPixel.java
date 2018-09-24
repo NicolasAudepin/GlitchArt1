@@ -49,6 +49,7 @@ public class FPixel extends Filter {
 		length = input.getWidth();
 		args = new ArrayList<Integer>();
 		getParamValue();
+		setComplition(0);
 		/*System.out.println(input.toString());
 
 		System.out.println("input ^ output \\/ ");
@@ -60,10 +61,15 @@ public class FPixel extends Filter {
 		boolean[][] matrix = mask.getMatrix();
 		//the actual effect of the filter
 		for(int i = 0; i < height; i++){
+			
+			setComplition((double)i/height);
+			//System.out.println("yep"+complition);
+			/*
 			if(i % printFreq ==0){
 				System.out.print(height +"  ");
 				System.out.println(i);
 			}
+			*/
 			for(int j = 0; j < length; j++){
 				
 				if (matrix[j][i]){

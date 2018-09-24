@@ -33,7 +33,8 @@ public class Filter extends StuffWithParameter{
 	public BufferedImage applyFilter(BufferedImage input){
 		
 		RefreshParamValue();
-		System.out.println("*** APPLY FILTER ***");
+		setComplition(0.0); 
+		System.out.println("*** APPLY DEFAULT FILTER ***");
 		this.input = input;
 		this.output = deepCopy(input);
 		System.out.println("applyingfilter");
@@ -47,6 +48,7 @@ public class Filter extends StuffWithParameter{
 		
 		//the actual effect of the filter
 		for(int i = 0; i < height; i++){
+			setComplition((double)i/height);
 			System.out.println("boucle for");
 			System.out.print(height +"  ");
 			System.out.println(i);
@@ -69,6 +71,8 @@ public class Filter extends StuffWithParameter{
 		
 	}
 	
+
+
 	public Filter(BufferedImage input){
 		
 		this.output = deepCopy(input);

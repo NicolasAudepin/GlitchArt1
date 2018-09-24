@@ -33,6 +33,7 @@ public class MCRandomLines extends MaskCreator{
 		double sin = Math.sin(angle);
 		double cos = Math.cos(angle);
 		for(int t= 0;t<(L+H)*2;t++){			
+			setComplition((double)t/(L+H)*2);
 			if(axis[t]){
 				double x1 = cos*(t-L-H);
 				double y1 = sin*(t-L-H);

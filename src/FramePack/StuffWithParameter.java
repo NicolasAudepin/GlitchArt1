@@ -26,6 +26,10 @@ public class StuffWithParameter {
 	 */
 	protected ArrayList<ParameterParent> filterParamList = new ArrayList<ParameterParent>();
 	
+	/**
+	 * le taux de comlétion du calcul du filtre.
+	 */
+	protected double complition = 0;
 	
 	/**
 	 * Copiée sur internet 
@@ -196,6 +200,18 @@ public class StuffWithParameter {
 	
 	public ArrayList<ParameterParent> getFilterParamList(){
 		return filterParamList;
+	}
+
+	public double getComplition() {
+		return complition;
+	}
+	/**
+	 * 
+	 * @param complitionPercentage
+	 */
+	public void setComplition(double complitionPercentage) {
+		System.out.println("comp"+complition);
+		this.complition = complitionPercentage;
 	}
 	
 

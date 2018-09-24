@@ -36,9 +36,12 @@ public class MCSquare extends MaskCreator{
 		outputMask = new boolean[L][H];
 		
 		for(int i = 0;i<L;i++){
+			setComplition((double)i/L);
+			/*
 			if(i%100==0){
 				System.out.println("boucle"+ i);
 			}
+			*/
 			for(int j = 0;j<H;j++){
 				
 				if (i<right & i> left &j > top & j< bottom){

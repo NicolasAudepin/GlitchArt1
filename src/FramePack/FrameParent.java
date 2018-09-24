@@ -81,7 +81,7 @@ public class FrameParent extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
+		}); 
 	}
 
 	/**

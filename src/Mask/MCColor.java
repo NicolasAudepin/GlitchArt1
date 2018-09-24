@@ -32,9 +32,12 @@ public class MCColor extends MaskCreator{
 	outputMask = new boolean[L][H];
 	
 	for(int i = 0;i<L;i++){
+		/*
 		if(i%100==0){
 			System.out.println("boucle"+ i);
 		}
+		*/
+		setComplition((double)i/L);
 		for(int j = 0;j<H;j++){
 			int RGB = bufInput.getRGB(i, j);
 			Color c =new Color(RGB);

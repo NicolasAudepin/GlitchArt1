@@ -114,7 +114,7 @@ public class MainFrame extends JFrame {
 			catch(IOException ioe){
 				lelabel.setText("raté");
 			}
-			
+			 
 		}
 		else{
 			lelabel.setText("pas d'image");

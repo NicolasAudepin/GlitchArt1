@@ -34,6 +34,7 @@ public class MaskCreator extends StuffWithParameter{
 		
 		outputMask = new boolean[L][H];
 		for (int i=0 ; i<L ; i++){
+			setComplition((double)i/L);
 			for (int j=0; j<H ; j++){
 				outputMask[i][j]=true;
 			}

@@ -167,7 +167,6 @@ public class FilterFrame extends FrameParent {
 		}
 		
 		
-		
 		File outputFile = new File(path);
 		System.out.println("path: "+path);
 		fChooser = new JFileChooser();
@@ -217,12 +216,12 @@ public class FilterFrame extends FrameParent {
 		System.out.print("filter index = ");
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
-		
+		//Thread tifany;
 		bufOutput = filter.applyFilter(bufInput);
-		
+		//TODO je crois que je dois creer une tread juste pour la bare de progression ici
 		setRenderIcon(bufOutput);
 		
-	}
+	} 
 
 	/**
 	 * créé la fenètre du filtre et place les differents Jcomponents imobiles tels que l'image et les bouton save render refresh

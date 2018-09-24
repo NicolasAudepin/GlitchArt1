@@ -95,6 +95,7 @@ public class FPixelSorting extends Filter{
 	public BufferedImage applyFilter(BufferedImage input){
 		// APPLIQUE L'EFFET Va récuperer les valeurs des diferents parametre puis output l'image une fois traitée
 		getParamValue(); //On ce prépare tranquillement
+		setComplition(0);
 		BufferedImage output = deepCopy(input);
 		int wid = output.getWidth();
 		int hei = output.getHeight();
@@ -104,6 +105,7 @@ public class FPixelSorting extends Filter{
 		System.out.println("création de la matrice");
 		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
 		for(int i= 0 ; i<wid; i++){
+			setComplition((double)i/wid/3);//premier tier de la progression -> premier tiers de la bare
 			ArrayList<Integer> line = new ArrayList<Integer>();
 			
 			for( int j=0 ; j<hei;j++){
@@ -125,6 +127,7 @@ public class FPixelSorting extends Filter{
 		System.out.println("trouver les maximunes locaux");
 		ArrayList<ArrayList<Boolean>> maxmat = new ArrayList<ArrayList<Boolean>>();
 		for(int i= 1 ; i<wid; i++){
+			setComplition((double)i/wid/3+0.333333);//deuxième tiers de la barre
 			ArrayList<Boolean> maxline =new ArrayList<Boolean>();
 			ArrayList<Integer> line = matrix.get(i-1);
 			maxline.add(false);
@@ -151,12 +154,13 @@ public class FPixelSorting extends Filter{
 		
 		System.out.println("MAGGIIIIIIC");
 		for(int i= 1 ; i<wid; i++){
+			setComplition((double)i/wid/3+0.66666);//Troisième partie
 			boolean select = false;
 			
 			// initialisation des paramètre au start de chaque colonne
 			int marge = amp; //longueur des lignes de pixels triés
 			int first = 0;
-			System.out.println(marge);
+			//System.out.println(marge);
 			ArrayList<Boolean> maxline = maxmat.get(i-1); 
 			ArrayList<Integer> valline = matrix.get(i-1);
 			ArrayList<Integer> valueSelect = new ArrayList<Integer>();// création de la ligne des valeurs des pixels
