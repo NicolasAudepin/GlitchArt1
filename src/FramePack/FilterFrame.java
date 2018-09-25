@@ -50,6 +50,7 @@ public class FilterFrame extends FrameParent {
 	private JTextField txtSaveName;
 	private JLabel lblRender = new JLabel("");
 	private JFileChooser fChooser;
+	private JProgressBar progressBar;
 	DefaultListModel<String> filterNameList = new DefaultListModel<String>();
 	JList<String> FilterList = new  JList<String>(filterNameList);
 	
@@ -60,9 +61,9 @@ public class FilterFrame extends FrameParent {
 	String outputFileName="No File";
 	
 	// repert de position graphics
-	protected int line1 = 10;
+	protected int line1 = 10; // position de la première ligne de contenu
 	protected int btnHeigth = 25;
-	protected int Vspace = 12;
+	protected int Vspace = 12; // espace vertical entre les bouttons
 	protected int lblLength = 300;
 	protected int sliderLength = 400;
 	protected int btnLenght = 100;
@@ -76,6 +77,7 @@ public class FilterFrame extends FrameParent {
 	
 	private static ClassList classList;
 	
+	private boolean calculating;
 	private int nbFilter;
 	private MainFrame MF;
 	private Filter filter ; 
@@ -222,9 +224,15 @@ public class FilterFrame extends FrameParent {
 		System.out.print("filter index = ");
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
-		//Thread tifany;
-		bufOutput = filter.applyFilter(bufInput);
-		//TODO je crois que je dois creer une tread juste pour la bare de progression ici
+		CalculatingThread tifany = new CalculatingThread(bufInput, filter,this);
+		tifany.start();
+		while(tifany.isAlive()){
+			int pbValue = (int)(100*filter.getComplition());
+			//System.out.println(pbValue+" "+filter.getComplition());
+			
+			progressBar.setValue(pbValue);
+		}
+		//bufOutput=tifany.output;
 		setRenderIcon(bufOutput);
 		
 	} 
@@ -340,8 +348,9 @@ public class FilterFrame extends FrameParent {
 		lblFilternb.setBounds(925, 14, 69, 20);
 		contentPane.add(lblFilternb);
 		
-		JProgressBar progressBar = new JProgressBar(0,100);
-		progressBar.setBounds(x, y, width, height);
+		progressBar = new JProgressBar(0,100);
+		progressBar.setBounds(762, line1 + JListHeigth+ 3, 148, btnHeigth);
+		contentPane.add(progressBar);
 		
 		System.out.println("***END INITIALIZE***");
 	}	
@@ -446,7 +455,7 @@ public class FilterFrame extends FrameParent {
 		else{
 			nbLines =filterParamList.get(filterParamList.size()-1).getGraphicalPlacement();
 		}
-		lblRender.setBounds(15,line1+ Math.max(JListHeigth,paramZone+(Vspace + btnHeigth)*(nbLines+1)), 1000,1000);
+		lblRender.setBounds(15,line1+ Math.max(JListHeigth + line1 + btnHeigth +5 ,paramZone+(Vspace + btnHeigth)*(nbLines+1)), 1000,1000);
 
 		System.out.println((Vspace + btnHeigth)*paramJLabelList.size());
 		contentPane.validate();
@@ -512,5 +521,13 @@ public class FilterFrame extends FrameParent {
 	public void setOutputFileName(String str){
 		outputFileName = str;
 		txtSaveName.setText(outputFileName);
+	}
+
+	public boolean isCalculating() {
+		return calculating;
+	}
+
+	public void setCalculating(boolean calculating) {
+		this.calculating = calculating;
 	}
 }
