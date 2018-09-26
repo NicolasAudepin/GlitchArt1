@@ -224,14 +224,27 @@ public class FilterFrame extends FrameParent {
 		System.out.print("filter index = ");
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
+		progressBar.setValue(50);
 		CalculatingThread tifany = new CalculatingThread(bufInput, filter,this);
 		tifany.start();
+		progressBar.setValue(40);
 		while(tifany.isAlive()){
 			int pbValue = (int)(100*filter.getComplition());
 			//System.out.println(pbValue+" "+filter.getComplition());
-			
-			progressBar.setValue(pbValue);
+			System.out.println("whileeee :"+ pbValue);
+			//progressBar.setValue(80);
+			progressBar.setIndeterminate(false);
+            progressBar.setValue(pbValue);
+			setTitle("calculating");
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		progressBar.setValue(40);
+		
 		//bufOutput=tifany.output;
 		setRenderIcon(bufOutput);
 		
