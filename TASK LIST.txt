@@ -9,6 +9,8 @@ GENERAL
 
 	- gerer les tailles de fenetres differents et tout
 	
+	-pourquoi tout freeze durant le calcul ??? le concepte même de le metre sur une thread cest pour avoir la paix wtfff
+	
 PARAM
 	
 	-ajouter un truc stylé de selection de couleurs

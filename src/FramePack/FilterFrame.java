@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import Filters.FBitSliding;
 import Filters.Filter;
+import backgroundThreads.ApplyFilterThread;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,11 +23,14 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Image;
@@ -38,7 +43,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FileChooserUI;
 import javax.swing.event.ListSelectionEvent;
 
-public class FilterFrame extends FrameParent {
+public class FilterFrame extends FrameParent implements PropertyChangeListener {
 
 	/**
 	 * 
@@ -225,31 +230,33 @@ public class FilterFrame extends FrameParent {
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
 		progressBar.setValue(50);
-		CalculatingThread tifany = new CalculatingThread(bufInput, filter,this);
-		tifany.start();
-		progressBar.setValue(40);
-		while(tifany.isAlive()){
-			int pbValue = (int)(100*filter.getComplition());
-			//System.out.println(pbValue+" "+filter.getComplition());
-			System.out.println("whileeee :"+ pbValue);
-			//progressBar.setValue(80);
-			progressBar.setIndeterminate(false);
-            progressBar.setValue(pbValue);
-			setTitle("calculating");
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		progressBar.setValue(40);
+		ApplyFilterThread tifany = new ApplyFilterThread(filter,bufInput,this);
+		tifany.addPropertyChangeListener(this);
+		tifany.execute();
 		
-		//bufOutput=tifany.output;
-		setRenderIcon(bufOutput);
+		progressBar.setValue(40);
 		
 	} 
 
+	/**
+	 * quand il y a du progrès de calcul
+	 */
+	public void propertyChange(PropertyChangeEvent evt) {
+        if ("progress" == evt.getPropertyName()) {
+        	progressBar.setIndeterminate(false);
+            progressBar.setValue((Integer) evt.getNewValue());
+			setTitle("calculating");
+			System.out.println("progress bar val :"+ progressBar.getValue());
+        }
+       
+        
+            
+    }
+
+	
+
+	
+	
 	/**
 	 * créé la fenètre du filtre et place les differents Jcomponents imobiles tels que l'image et les bouton save render refresh
 	 * 
@@ -499,7 +506,11 @@ public class FilterFrame extends FrameParent {
 		
 		
 	}
-	
+	/**
+	 * Fait apparaitre l'image buffy sur le label lblRender
+	 * est appellé par le done() de ApplyFilterThread à la fin du 
+	 * @param buffy
+	 */
 	public void setRenderIcon(BufferedImage buffy){
 		System.out.println("*** SET RENDER ICON ***");
 		float ratio = (float)buffy.getTileHeight() / buffy.getTileWidth();

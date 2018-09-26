@@ -8,6 +8,7 @@ import Filters.Filter;
 import FramePack.ClassList;
 import FramePack.MainFrame;
 import Mask.Mask;
+import backgroundThreads.ApplyFilterThread;
 
 public class FPixelSorting extends Filter{
 	
@@ -93,8 +94,9 @@ public class FPixelSorting extends Filter{
 	}
 	
 	@Override 
-	public BufferedImage applyFilter(BufferedImage input){
+	public BufferedImage applyFilter(BufferedImage input, ApplyFilterThread dady){
 		// APPLIQUE L'EFFET Va récuperer les valeurs des diferents parametre puis output l'image une fois traitée
+		aft=dady;
 		getParamValue(); //On ce prépare tranquillement
 		setComplition(0);
 		BufferedImage output = deepCopy(input);

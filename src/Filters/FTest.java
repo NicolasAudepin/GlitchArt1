@@ -2,6 +2,8 @@ package Filters;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import backgroundThreads.ApplyFilterThread;
+
 public class FTest extends Filter {
 	
 
@@ -25,8 +27,9 @@ public class FTest extends Filter {
 
 
 	@Override 
-	public BufferedImage applyFilter(BufferedImage input){
+	public BufferedImage applyFilter(BufferedImage input,ApplyFilterThread dady){
 		System.out.println("*** APPLY FILTER ***");
+		aft=dady;
 		this.input = input;
 		this.output = deepCopy(input);
 		int height = input.getHeight();
