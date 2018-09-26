@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import FramePack.StuffWithParameter;
+import backgroundThreads.ApplyFilterThread;
 
 
 /**
@@ -14,7 +15,7 @@ import FramePack.StuffWithParameter;
  */
 public class Filter extends StuffWithParameter{
 	//
-	
+	ApplyFilterThread aft;
 	BufferedImage input;
 	BufferedImage output;
 	
@@ -30,8 +31,8 @@ public class Filter extends StuffWithParameter{
 	 * @param input l'image qui va être modifiée par le filtre
 	 * @return BufferedImage l'image qui a subit le filtre 
 	 */
-	public BufferedImage applyFilter(BufferedImage input){
-		
+	public BufferedImage applyFilter(BufferedImage input,ApplyFilterThread dady){
+		aft=dady;
 		RefreshParamValue();
 		setComplition(0.0); 
 		System.out.println("*** APPLY DEFAULT FILTER ***");
@@ -86,6 +87,16 @@ public class Filter extends StuffWithParameter{
 		
 	}
 	
+	@Override
+	public void setComplition(double val) {
+		if( aft != null) {
+			//System.out.println(val);
+			aft.setProgressValue((int) (val*100));
+		}
+		else {
+			System.out.println("je n'ai pas encore de aft");
+		}
+	}
 	
 	
 	//Getter & Setter

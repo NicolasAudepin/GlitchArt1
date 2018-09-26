@@ -3,12 +3,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.border.EmptyBorder;
 
 import Filters.FBitSliding;
 import Filters.Filter;
+import backgroundThreads.ApplyFilterThread;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,11 +23,14 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Image;
@@ -37,7 +43,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FileChooserUI;
 import javax.swing.event.ListSelectionEvent;
 
-public class FilterFrame extends FrameParent {
+public class FilterFrame extends FrameParent implements PropertyChangeListener {
 
 	/**
 	 * 
@@ -49,6 +55,7 @@ public class FilterFrame extends FrameParent {
 	private JTextField txtSaveName;
 	private JLabel lblRender = new JLabel("");
 	private JFileChooser fChooser;
+	private JProgressBar progressBar;
 	DefaultListModel<String> filterNameList = new DefaultListModel<String>();
 	JList<String> FilterList = new  JList<String>(filterNameList);
 	
@@ -59,9 +66,9 @@ public class FilterFrame extends FrameParent {
 	String outputFileName="No File";
 	
 	// repert de position graphics
-	protected int line1 = 10;
+	protected int line1 = 10; // position de la première ligne de contenu
 	protected int btnHeigth = 25;
-	protected int Vspace = 12;
+	protected int Vspace = 12; // espace vertical entre les bouttons
 	protected int lblLength = 300;
 	protected int sliderLength = 400;
 	protected int btnLenght = 100;
@@ -75,6 +82,7 @@ public class FilterFrame extends FrameParent {
 	
 	private static ClassList classList;
 	
+	private boolean calculating;
 	private int nbFilter;
 	private MainFrame MF;
 	private Filter filter ; 
@@ -85,6 +93,7 @@ public class FilterFrame extends FrameParent {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		System.out.println("*** filterFrame MAIN ***");
 		EventQueue.invokeLater(new Runnable() {
@@ -103,9 +112,13 @@ public class FilterFrame extends FrameParent {
 		
 		
 	}
+	*/
 
 	/**
-	 * Create the frame.
+	 * créé la frame et l'initialise
+	 * @param buf l'image d'input
+	 * @param MF la MainFrame de ce filtre 
+	 * @param nbFilter la position de ce filtre dans la liste des filtres de la MF
 	 */
 	public FilterFrame(BufferedImage buf, MainFrame MF, int nbFilter){
 		System.out.println("*** FILTERFRAME creator(buf) ***");
@@ -216,13 +229,34 @@ public class FilterFrame extends FrameParent {
 		System.out.print("filter index = ");
 		System.out.println(FilterList.getSelectedIndex());
 		//System.out.println(bufInput.toString());
-		//Thread tifany;
-		bufOutput = filter.applyFilter(bufInput);
-		//TODO je crois que je dois creer une tread juste pour la bare de progression ici
-		setRenderIcon(bufOutput);
+		progressBar.setValue(50);
+		ApplyFilterThread tifany = new ApplyFilterThread(filter,bufInput,this);
+		tifany.addPropertyChangeListener(this);
+		tifany.execute();
+		
+		progressBar.setValue(40);
 		
 	} 
 
+	/**
+	 * quand il y a du progrès de calcul
+	 */
+	public void propertyChange(PropertyChangeEvent evt) {
+        if ("progress" == evt.getPropertyName()) {
+        	progressBar.setIndeterminate(false);
+            progressBar.setValue((Integer) evt.getNewValue());
+			setTitle("calculating");
+			System.out.println("progress bar val :"+ progressBar.getValue());
+        }
+       
+        
+            
+    }
+
+	
+
+	
+	
 	/**
 	 * créé la fenètre du filtre et place les differents Jcomponents imobiles tels que l'image et les bouton save render refresh
 	 * 
@@ -239,41 +273,50 @@ public class FilterFrame extends FrameParent {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		//le JButton pour faire les rendus
 		JButton btnRender = new JButton("Render");
-		btnRender.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnRender.setBounds(line1, line1, btnLenght, btnHeigth);
+		btnRender.setFont(new Font("Consolas", Font.PLAIN, 20));
 		btnRender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rendering();
 			}
 		});
-		
-		btnRender.setBounds(line1, line1, btnLenght, btnHeigth);
 		contentPane.add(btnRender);
 		
+		
+		//le JButton de sauvegarde
 		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Consolas", Font.PLAIN, 20));
+		btnSave.setBounds(line1*3+btnLenght*2, line1, btnLenght, btnHeigth);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//On a cliqué sur le bouton save
 				saveOutput();
 			}
 		});
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnSave.setBounds(line1*3+btnLenght*2, line1, btnLenght, btnHeigth);
 		contentPane.add(btnSave);
 		
+		
+		
+		// La zone de preview du nom du fichier 
 		txtSaveName = new JTextField();
 		txtSaveName.setText(outputFileName);
+		txtSaveName.setFont(new Font("Consolas", Font.PLAIN, 15));
 		txtSaveName.setBounds(line1*4+btnLenght*3, line1, savetxtLength, btnHeigth);
 		contentPane.add(txtSaveName);
 		
-		
+		// La zone de preview de l'image
 		lblRender.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRender.setIcon(null);
 		refreshRenderPosition();
 		contentPane.add(lblRender);
 		
+		// Le JButton qui ré intialise l'input
 		JButton btnRefreshInput = new JButton("Refresh Input");
 		btnRefreshInput.setBounds(line1*2+btnLenght, line1, btnLenght, btnHeigth);
+		btnRefreshInput.setFont(new Font("Consolas", Font.PLAIN, 20));
 		btnRefreshInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//On a cliqué sur le bouton save
@@ -286,6 +329,7 @@ public class FilterFrame extends FrameParent {
 		//Filter Selection
 		FilterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		FilterList.setBackground(Color.WHITE);
+		FilterList.setFont(new Font("Consolas", Font.PLAIN, 15));
 		FilterList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		FilterList.setBounds(762, line1, 148, JListHeigth);
 		setFilterJList();
@@ -324,6 +368,9 @@ public class FilterFrame extends FrameParent {
 		lblFilternb.setBounds(925, 14, 69, 20);
 		contentPane.add(lblFilternb);
 		
+		progressBar = new JProgressBar(0,100);
+		progressBar.setBounds(762, line1 + JListHeigth+ 3, 148, btnHeigth);
+		contentPane.add(progressBar);
 		
 		System.out.println("***END INITIALIZE***");
 	}	
@@ -428,7 +475,7 @@ public class FilterFrame extends FrameParent {
 		else{
 			nbLines =filterParamList.get(filterParamList.size()-1).getGraphicalPlacement();
 		}
-		lblRender.setBounds(15,line1+ Math.max(JListHeigth,paramZone+(Vspace + btnHeigth)*(nbLines+1)), 1000,1000);
+		lblRender.setBounds(15,line1+ Math.max(JListHeigth + line1 + btnHeigth +5 ,paramZone+(Vspace + btnHeigth)*(nbLines+1)), 1000,1000);
 
 		System.out.println((Vspace + btnHeigth)*paramJLabelList.size());
 		contentPane.validate();
@@ -459,7 +506,11 @@ public class FilterFrame extends FrameParent {
 		
 		
 	}
-	
+	/**
+	 * Fait apparaitre l'image buffy sur le label lblRender
+	 * est appellé par le done() de ApplyFilterThread à la fin du 
+	 * @param buffy
+	 */
 	public void setRenderIcon(BufferedImage buffy){
 		System.out.println("*** SET RENDER ICON ***");
 		float ratio = (float)buffy.getTileHeight() / buffy.getTileWidth();
@@ -494,5 +545,13 @@ public class FilterFrame extends FrameParent {
 	public void setOutputFileName(String str){
 		outputFileName = str;
 		txtSaveName.setText(outputFileName);
+	}
+
+	public boolean isCalculating() {
+		return calculating;
+	}
+
+	public void setCalculating(boolean calculating) {
+		this.calculating = calculating;
 	}
 }

@@ -210,7 +210,7 @@ public class StuffWithParameter {
 	 * @param complitionPercentage
 	 */
 	public void setComplition(double complitionPercentage) {
-		System.out.println("comp"+complition);
+		//System.out.println("comp "+complition);
 		this.complition = complitionPercentage;
 	}
 	

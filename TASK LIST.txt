@@ -6,8 +6,11 @@ GENERAL
 
 	- séparer les classes visuelles et calculatoires pour une gestion plus facile 
 	+ essayer de les mettre dans des classes differentes pour faciliter la réutilisation sur android
+	+Creer une interface manager qui appelle les fonctions et threads a partir d'ordres simples des Jframes
 
 	- gerer les tailles de fenetres differents et tout
+	
+	
 	
 PARAM
 	
@@ -131,6 +134,8 @@ PIX SORT
 		- RGB
 		- custom?
 		
+	- optimiser les if du calcul des valeurs pour les mettre avant les boucles for 
+		
 	ajouter un mode beug de quick sort ? wrong value ... B&b
 
 
@@ -150,10 +155,11 @@ PARAM
 
 GENERAL
 	-sauvegarde !!!
-	revoir le system de sauvegarde
-	
+	revoir le system de sauvegarde	
 	
 	- mise en place de dossier par defaut pour les inputs et outputs
+
+	-pourquoi tout freeze durant le calcul ??? le concepte même de le metre sur une thread cest pour avoir la paix wtfff
 
 PIXSORT
 	- pixsort  ajouter les deux mask input output

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import FramePack.ClassList;
 import FramePack.MainFrame;
 import Mask.Mask;
+import backgroundThreads.ApplyFilterThread;
 
 public class FPixel extends Filter {
 	
@@ -40,9 +41,9 @@ public class FPixel extends Filter {
 	}
 	
 	@Override
-	public BufferedImage applyFilter(BufferedImage input){
+	public BufferedImage applyFilter(BufferedImage input, ApplyFilterThread dady){
 		System.out.println("*** APPLY PIXEL BY PIXEL ***");
-		
+		aft=dady;
 		this.input = input;
 		this.output = deepCopy(input);
 		height = input.getHeight();
