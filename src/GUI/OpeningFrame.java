@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -34,6 +35,7 @@ public class OpeningFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public OpeningFrame() {
+		setMinimumSize(new Dimension(800,800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 1000);
 		contentPane = new JPanel();
@@ -50,19 +52,5 @@ public class OpeningFrame extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
-	class ArturPanel extends JPanel {
-
-		  public ArturPanel() {
-
-		    JButton b1 = new JButton("New York");
-		    add(b1);
-		    JButton b2 = new JButton("London");
-		    add(b2);
-		    JButton b3 = new JButton("Hong Kong");
-		    add(b3);
-		    JButton b4 = new JButton("Tokyo");
-		    add(b4);
-		  }
-		}
 
 }
