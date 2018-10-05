@@ -41,7 +41,7 @@ public class OpeningFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.add("Artur",new ArturPanel());
+		tabbedPane.add("first", new PanelDeLaFamille());
 		tabbedPane.add("Salut",new WelcomePanel());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
