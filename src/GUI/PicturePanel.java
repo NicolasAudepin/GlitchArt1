@@ -47,6 +47,12 @@ public class PicturePanel extends PanelParent {
 					if (GM.hasInputImage()){
 						inputImage = GM.getInputImage();
 						drawScaledMainImage(inputImage,imageLabel);
+						picInfo.setText(GM.getInputInfoText());
+					}
+					else{
+						imageLabel.setIcon(null);;
+						imageLabel.setText("Wrong file type. Try .jpg or .png");
+						
 					}
 					
 					
@@ -116,11 +122,13 @@ public class PicturePanel extends PanelParent {
 		File directory = new File(inputDirectorySurface);
 		if(directory.exists() && directory.isDirectory()){
 			fChooser.setCurrentDirectory(directory);
+			System.out.println("On est sur la Surface");
 		}
 		else{
 			directory= new File(inputDirectoryOrdiFixe);
 			if(directory.exists() && directory.isDirectory()){
 				fChooser.setCurrentDirectory(directory);
+				System.out.println("On est sur l'ordi fixe");
 			}
 			else{
 				System.out.println("pas de dossier par default trouvé sur cet ordi");
@@ -132,16 +140,17 @@ public class PicturePanel extends PanelParent {
 	}
 
 	private void setConstraintEverywhere() {
+		//Le boutton de selection de fichier
 		SL.putConstraint(N, selectFileButton, dist, N, this);
 		SL.putConstraint(S, selectFileButton, RBHeigth, N, selectFileButton);
 		SL.putConstraint(W, selectFileButton, dist, W, this);
 		SL.putConstraint(E, selectFileButton, -dist, E, this);
-		// TODO Auto-generated method stub
+		//Le panel d'information sur l'image
 		SL.putConstraint(N, picInfo, dist, S, selectFileButton);
 		SL.putConstraint(S, picInfo, -dist, S, this);
 		SL.putConstraint(W, picInfo, -300, E, picInfo);
 		SL.putConstraint(E, picInfo, -dist, E, this);
-		
+		//Le label conenant l'image
 		SL.putConstraint(N, imageLabel, dist, S, selectFileButton);
 		SL.putConstraint(S, imageLabel, -dist, S, this);
 		SL.putConstraint(W, imageLabel, dist, W, this);
