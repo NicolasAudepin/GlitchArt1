@@ -26,30 +26,16 @@ import javax.swing.ListModel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-public class PanelDeLaFamille extends JPanel{
+import manager.GUIManager;
+
+public class FilterPanel extends PanelParent{
 	
 	private int multiplier = 1;
 	
-	private int dist = 10; // la distance normale entre deux objets
-	private int FSWidth = 200;
-	private int FSHeigth = 200;
-	private int PBHeight =30;
-	private int RBLength = 160; 
-	private int RBHeigth = 40;
-	
-	private Font fontButton = new Font("Consolas", Font.BOLD, 20);
-	private Font font = new Font("Consolas", Font.PLAIN, 15);
+
 	private Image mainImage;
 	
-	//utile pour ecrire les constraints plus vite et plus lisibles
-	private String W = SpringLayout.WEST;
-	private String E = SpringLayout.EAST;
-	private String N = SpringLayout.NORTH;
-	private String S = SpringLayout.SOUTH;
-	
 	//tout les Jcomponents et leurs potes
-	private SpringLayout SL = new SpringLayout();
-	
 	private JButton Jrender = new JButton();
 	private JButton Jsave = new JButton();
 	private JLabel JsaveName = new JLabel();
@@ -63,7 +49,8 @@ public class PanelDeLaFamille extends JPanel{
 	private JScrollPane scrollImage = new JScrollPane();
 	
 	
-	public PanelDeLaFamille(){
+	public FilterPanel(GUIManager GM){
+		super(GM);
 		placeLayoutandComponents();
 		setComponentsActionListeners();
 		
@@ -71,13 +58,10 @@ public class PanelDeLaFamille extends JPanel{
 	
 	private void setComponentsActionListeners() {
 		
-		//Lorsque la fnètre change de taille on resize l'image principale
+		//Lorsque la fenètre change de taille on resize l'image principale
 		this.addComponentListener(new ComponentAdapter() {
 		    public void componentResized(ComponentEvent componentEvent) {
-		    	System.out.println("RESIZEEED");
-		    	System.out.print("taille"+mainImageLabel.getHeight());
-		    	drawScaledMainImage();
-		        // do stuff
+		    	drawScaledMainImage(mainImage,mainImageLabel);
 		    }
 		});
 		// TODO créé toute les actonListeners d l'user 
@@ -86,12 +70,11 @@ public class PanelDeLaFamille extends JPanel{
 
 	private void placeLayoutandComponents(){
 		
-		this.setBackground(Color.DARK_GRAY);
-		this.setLayout(SL);
+		
 		
 		
 		//création du Jpanel contenant l'image
-		mainImageLabel.setBackground(Color.BLACK);
+		mainImageLabel.setBackground(behindPicColor);
 		mainImageLabel.setOpaque(true);
 		mainImageLabel.setFont(font);
 		mainImageLabel.setForeground(Color.WHITE);
@@ -105,43 +88,50 @@ public class PanelDeLaFamille extends JPanel{
 		filterListLabel.setFont(font);
 		filterListLabel.setForeground(Color.WHITE);
 		add(filterListLabel);
+		
 		DefaultListModel<String> modelFilterList = new DefaultListModel<String>();
 		setFilterNameList(modelFilterList);		
 		JfilterList.setModel(modelFilterList);
 		JfilterList.setFont(font);
-		JfilterList.setBackground(Color.BLACK);
+		JfilterList.setBackground(buttonColor);
 		JfilterList.setForeground(Color.WHITE);
 		scrollFilter.setViewportView(JfilterList);
 		add(scrollFilter);
 		
 		
 		//créaion de la zone de selection des images
+		imageListLabel.setText("Previous States");
+		imageListLabel.setForeground(Color.WHITE);
+		imageListLabel.setFont(font);
+		add(imageListLabel);
+		
 		DefaultListModel<ImageIcon> modelImageList = new DefaultListModel<ImageIcon>();
 		setPreviousImageList(modelImageList);
 		JimageList.setModel(modelImageList);
-		JimageList.setBackground(Color.BLACK);
+		JimageList.setBackground(behindPicColor);
+		
 		scrollImage.setViewportView(JimageList);
 		add(scrollImage);
 		
 		
 		//création de la bar de progrès
-		progressBar.setBackground(Color.BLACK);
+		progressBar.setBackground(buttonColor);
 		add(progressBar);
 		
 		//création des Buttons du haut
-		Jrender.setBackground(Color.BLACK);
+		Jrender.setBackground(buttonColor);
 		Jrender.setFont(fontButton);
 		Jrender.setText("RENDER");
 		Jrender.setForeground(Color.WHITE);
 		add(Jrender);
 		
-		Jsave.setBackground(Color.BLACK);
+		Jsave.setBackground(buttonColor);
 		Jsave.setFont(fontButton);
 		Jsave.setText("SAVE");
 		Jsave.setForeground(Color.WHITE);
 		add(Jsave);
 		
-		JsaveName.setBackground(Color.BLACK);
+		JsaveName.setBackground(buttonColor);
 		JsaveName.setOpaque(true);
 		JsaveName.setText("saveName is usualy very long");
 		JsaveName.setForeground(Color.WHITE);
@@ -151,7 +141,7 @@ public class PanelDeLaFamille extends JPanel{
 		putConstraintEverywhere();
 		
 		setMainImageToJoconde();
-		drawScaledMainImage();
+		drawScaledMainImage(mainImage,mainImageLabel);
 		
 	}
 	
@@ -167,33 +157,6 @@ public class PanelDeLaFamille extends JPanel{
 			}
 	}
 
-	/**
-	 * draw the mainImage scaled to the main label 
-	 */
-	private void drawScaledMainImage() {
-		int heigth;
-		int width;
-		double IW= ((BufferedImage)mainImage).getWidth();
-		double IH = ((BufferedImage)mainImage).getHeight();
-		double ratioI = IW/IH;
-		double LW= mainImageLabel.getWidth()+1;
-		double LH = mainImageLabel.getHeight()+1;
-		double ratioL = LW/LH;
-		if(ratioI<ratioL){
-			 heigth=(int) LH;
-			 width=(int)(LH*ratioI);
-		}
-		else{
-			width=(int)LW;
-			heigth=(int) (LW/ratioI);
-			
-		}
-		 
-		ImageIcon im = new ImageIcon(mainImage.getScaledInstance(width, heigth, Image.SCALE_FAST)
-		);
-		mainImageLabel.setIcon(im);
-		mainImageLabel.setText("");
-	}
 
 	/**
 	 * remplie la liste avec les images que lui donne 
@@ -251,12 +214,17 @@ public class PanelDeLaFamille extends JPanel{
 		
 		SL.putConstraint(N, scrollFilter, 0, S, filterListLabel);
 		SL.putConstraint(S, scrollFilter, FSHeigth, N, scrollFilter);
-		SL.putConstraint(N, scrollImage, dist, S, scrollFilter);
-		SL.putConstraint(S, scrollImage, -dist, S, this);
-		//position horizontal des selecteurs
 		SL.putConstraint(E, scrollFilter, -dist, E, this);
-		SL.putConstraint(E, scrollImage, -dist, E, this);
 		SL.putConstraint(W, scrollFilter, -FSWidth, E, scrollFilter);
+		//position horizontal des selecteurs
+		SL.putConstraint(N, imageListLabel, dist, S, scrollFilter);
+		SL.putConstraint(E, imageListLabel, -dist, E, this);
+		SL.putConstraint(S, imageListLabel, 30, N, imageListLabel);
+		SL.putConstraint(W, imageListLabel, -FSWidth, E, imageListLabel);
+		
+		SL.putConstraint(N, scrollImage, 0, S, imageListLabel);
+		SL.putConstraint(S, scrollImage, -dist, S, this);
+		SL.putConstraint(E, scrollImage, -dist, E, this);
 		SL.putConstraint(W, scrollImage, 0, W, scrollFilter);
 		//Position de progressBar
 		SL.putConstraint(W, progressBar, dist, W, this);

@@ -4,16 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import manager.GUIManager;
+
 import javax.swing.JTabbedPane;
 
-public class OpeningFrame extends JFrame {
+public class NewMainFrame extends JFrame {
 
 	private JPanel contentPane;
+	private static GUIManager GM;
 
 	/**
 	 * Launch the application.
@@ -22,7 +27,7 @@ public class OpeningFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OpeningFrame frame = new OpeningFrame();
+					NewMainFrame frame = new NewMainFrame(GM);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,21 +39,26 @@ public class OpeningFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OpeningFrame() {
+	public NewMainFrame(GUIManager GM) {
+		this.GM = GM;
+		
 		setMinimumSize(new Dimension(800,800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 1000);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.darkGray);
-		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(Color.BLACK);
 		tabbedPane.setForeground(Color.WHITE);
-		tabbedPane.add("first", new PanelDeLaFamille());
-		tabbedPane.add("Salut",new WelcomePanel());
+		tabbedPane.setFont( new Font("Consolas", Font.PLAIN, 20));
+		tabbedPane.add("PictureSelection",new PicturePanel(GM));
+		tabbedPane.add("Filter", (JPanel)new FilterPanel(GM));
+		tabbedPane.add("parent", new PanelParent(GM));
+		
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
