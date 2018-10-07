@@ -249,6 +249,42 @@ public class FilterPanel extends PanelParent{
 	}
 
 	
+	/**
+	 * une image a été selectionnée par le PicturPanel
+	 */
+	public void newInputChoosen() {
+		System.out.println("* New Input Choosen for the filterPanel *");
+		setPreviousImageList();
+		goToLayer(0);
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * affiche les param et l'input du layer demandé
+	 * @param layerPosition
+	 */
+	private void goToLayer(int layerPosition){
+		System.out.println("*** GO TO LAYER "+ layerPosition +" ***");
+		setMainImage(GM.getLayerOutput(layerPosition));
+		
+		SetParamJComponents(layerPosition);
+		
+		
+		
+	}
+
+	/**
+	 * met en place les JComponents du Layer demandé
+	 * @param layerPosition
+	 */
+	private void SetParamJComponents(int layerPosition) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 	
 	

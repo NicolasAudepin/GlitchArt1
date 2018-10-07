@@ -1,5 +1,6 @@
 package FramePack;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import Filters.FNoFilter;
@@ -11,8 +12,15 @@ public class RenderingLayer {
 	Filter filter;
 	
 	public RenderingLayer(){
-		System.out.println("Layer sans input ni filtre");
+		System.out.println("Création Layer sans input ni filtre");
 		filter = new FNoFilter();
+	}
+	
+	public RenderingLayer(BufferedImage buffInput){
+		System.out.println("création de layer avec input");
+		filter = new FNoFilter();
+		this.buffInput =buffInput;
+		this.buffOutput = buffInput;
 	}
 	
 	public void setFilter(Filter filter){
@@ -20,6 +28,7 @@ public class RenderingLayer {
 	}
 	
 	public void setInput(BufferedImage buff){
+		System.out.println("layer input set");
 		this.buffInput = buff;
 	}
 	
@@ -31,6 +40,14 @@ public class RenderingLayer {
 	public void setfilterParamValue(int value){
 		System.out.println("filter parameter value changed"+value);
 		//TODO tmtc
+	}
+
+	public Image getInput() {
+		return buffInput;
+	}
+
+	public Image getOutput() {
+		return buffOutput;
 	}
 	
 	

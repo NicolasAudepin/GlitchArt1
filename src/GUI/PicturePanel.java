@@ -50,18 +50,22 @@ public class PicturePanel extends PanelParent {
 		// selectFile Button pressed -> ouvre la fenètre de selection de fichiers
 		selectFileButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
-				System.out.println("**  selectFIle");
+				System.out.println("\n***  File selection open***");
 				int fileValue = fChooser.showOpenDialog(fChooser);
 				if (fileValue == JFileChooser.APPROVE_OPTION){
+					System.out.println("file selected");
 					GM.NewInputFileChoosen(fChooser.getSelectedFile());
 					if (GM.hasInputImage()){
 						inputImage = GM.getInputImage();
 						drawScaledMainImage(inputImage,imageLabel);
 						picInfo.setText(GM.getInputInfoText());
-						System.out.println("file selected");
-						mainFrame.getFilterPanel().setMainImage(inputImage);
-						mainFrame.getFilterPanel().setPreviousImageList();
 						
+						
+						//met en place la filter frame
+						mainFrame.getFilterPanel().newInputChoosen();
+						//mainFrame.getFilterPanel().setMainImage(inputImage);
+						//mainFrame.getFilterPanel().setPreviousImageList();
+						//TODO préparer les RenderingLayers plutot
 					}
 					else{
 						imageLabel.setIcon(null);;
@@ -106,8 +110,7 @@ public class PicturePanel extends PanelParent {
 		selectFileButton.setFont(fontButton);
 		add(selectFileButton);
 		
-		picInfo.setText("bonjour a tous je suis le JTextArea je contiens les informations relatives à l'image selectionnée."
-				+ "\nMon text sera long il me faut donc de la place pour m'écrire s'il vous plait");
+		picInfo.setText("No Image Choosen");
 		picInfo.setCaretPosition(10);
 		picInfo.setFont(font);
 		picInfo.setForeground(textColor);

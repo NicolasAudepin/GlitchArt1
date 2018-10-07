@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
 import FramePack.ClassList;
+import FramePack.RenderingLayer;
 
 /**
  * Le GUI Manager est la classe qui va s'occuper de faire la liaison entre les classes du GUI et les classes de calcules
@@ -27,10 +28,11 @@ public class GUIManager {
 	BufferedImage buffInput;
 	
 	int smallIconWidth;
+	ArrayList<RenderingLayer> layerList = new ArrayList<RenderingLayer>();
 	ArrayList<Image> imageList = new ArrayList<Image>();
 	ArrayList<ImageIcon> smallIconList = new ArrayList<ImageIcon>();
 	DefaultListModel<ImageIcon> modelImageList = new DefaultListModel<ImageIcon>();
-
+	
 	
 	public GUIManager() {
 		System.out.println("GUIManager Created");
@@ -43,6 +45,7 @@ public class GUIManager {
 	/**
 	 * A new input has been selected by the gui. 
 	 * its image will be set as the input image
+	 * If there were already filterlayers it will provoc a cascade of applying filter 
 	 * @param selectedFile
 	 */
 	public void NewInputFileChoosen(File selectedFile) {
@@ -50,7 +53,12 @@ public class GUIManager {
 		try {
 			inputImage = ImageIO.read(inputFile);
 			buffInput = ImageIO.read(inputFile);
+			System.out.println("GUI got the image");
 			//this.setSmallIconWidth(40);
+			if(layerList.size()==0){ //si le logicile viens d'être lancé et la première image selectionnée
+				System.out.println("create first Layer with buff input from file");
+				layerList.add(new RenderingLayer(buffInput));
+			}
 			replaceImageAtPosition(0,buffInput);
 			
 			
@@ -111,18 +119,26 @@ public class GUIManager {
 		
 		int height =(int) ((float) width*ratio);
 		ImageIcon imIcon = new ImageIcon(im.getScaledInstance(width, height, Image.SCALE_FAST));
-		if (position>=imageList.size()){
+		if (position>=imageList.size()){//ajoute une nouvelle image
 			imageList.add(position, im);
 			smallIconList.add(position, imIcon);
 			modelImageList.add(position, imIcon);
 
 		
 		}
-		else{
+		else{//change une image qui existe déjà
 			imageList.set(position, im);
 			smallIconList.set(position, imIcon);
 			modelImageList.set(position, imIcon);
 		}
+		if(position<layerList.size()){
+			layerList.get(position).setInput(im);
+		}
+		else{
+			System.out.println("mmmm wat y a pas de layer");
+		}
+		
+		 
 	}
 
 	public ArrayList<String> getFilterNameList(){
@@ -213,6 +229,20 @@ public class GUIManager {
 
 	public void setInputImage(Image inputImage) {
 		this.inputImage = inputImage;
+	}
+
+
+
+	public Image getLayerInput(int layerPosition) {
+		Image im = layerList.get(layerPosition).getInput();
+		
+		return im;
+	}
+	
+	public Image getLayerOutput(int layerPosition) {
+		Image im = layerList.get(layerPosition).getOutput();
+		
+		return im;
 	}
 	
 	
