@@ -107,7 +107,6 @@ public class FilterPanel extends PanelParent{
 		add(imageListLabel);
 		
 		DefaultListModel<ImageIcon> modelImageList = new DefaultListModel<ImageIcon>();
-		setPreviousImageList(modelImageList);
 		JimageList.setModel(modelImageList);
 		JimageList.setBackground(behindPicColor);
 		
@@ -167,51 +166,33 @@ public class FilterPanel extends PanelParent{
 	 * remplie la liste avec les images que lui donne 
 	 * @param modelImageList
 	 */
-	public void setPreviousImageList(DefaultListModel<ImageIcon> modelImageList) {
-		/*
+	public void setPreviousImageList() {
+		DefaultListModel<ImageIcon> newModelList = new DefaultListModel<ImageIcon>();
+		System.out.println("set icons");
 		ArrayList<ImageIcon> list = GM.getsmallIconList();
 		for(int i =0;i< list.size();i++){
-			ImageIcon im = list.get(i);
-			modelImageList.add(i, im);
-		}
-		*/
-		
-		/*try {
-			//TODO mettre els bonnes images 
-
-			File file = new File("C:\\Users\\AUDEPIN\\Dropbox\\-Input\\aaa la joconde.jpg");
-			Image image = ImageIO.read(file);
-			ImageIcon im = new ImageIcon(image);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
-			modelImageList.addElement(im);
+			System.out.println("for"+i);
+			ImageIcon im = list.get(i);			
+			newModelList.addElement(im);
 			
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		*/
+		
+		
+		JimageList.setModel(newModelList);
+		JimageList.repaint();
+		
 	}
 
 	/**
 	 * remplie la liste en param avec les noms de filtres que lui donne le GUI Manager
+	 * ne repaint pas car il est utilisé seuleemnt une fois normalement
 	 * @param modelFilterList
 	 */
 	private void setFilterNameList(DefaultListModel<String> modelFilterList) {
-		modelFilterList.addElement( "1nom de filtre");
-		modelFilterList.addElement( "2nom de filtre");
-		modelFilterList.addElement( "3nom de filtre");
-		modelFilterList.addElement( "4nom de filtre");
-		modelFilterList.addElement( "5nom de filtre");
-		modelFilterList.addElement( "6nom de filtre");
-		modelFilterList.addElement( "autre nom de filtre");
-		modelFilterList.addElement( "encore un autre nom de filtre");
-		// TODO Auto-generated method stub
+		ArrayList<String> list =GM.getFilterNameList();
+		for(int i = 0; i < list.size();i++){
+			modelFilterList.addElement(list.get(i));
+		}
 		
 	}
 

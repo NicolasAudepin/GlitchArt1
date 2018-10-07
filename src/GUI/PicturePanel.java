@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,9 +58,9 @@ public class PicturePanel extends PanelParent {
 						inputImage = GM.getInputImage();
 						drawScaledMainImage(inputImage,imageLabel);
 						picInfo.setText(GM.getInputInfoText());
-						System.out.println("file select");
+						System.out.println("file selected");
 						mainFrame.getFilterPanel().setMainImage(inputImage);
-						//mainFrame.getFilterPanel().setPreviousImageList(GM.getModelImageList());
+						mainFrame.getFilterPanel().setPreviousImageList();
 						
 					}
 					else{
@@ -94,6 +95,8 @@ public class PicturePanel extends PanelParent {
 		imageLabel.setFont(bigFont);
 		imageLabel.setForeground(textColor);
 		imageLabel.setText("no image selected");
+		//imageLabel.setText("+");
+		//imageLabel.setFont(new Font("Consolas", Font.PLAIN, 80));
 		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(imageLabel);
 		

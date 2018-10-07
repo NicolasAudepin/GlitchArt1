@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
+import FramePack.ClassList;
+
 /**
  * Le GUI Manager est la classe qui va s'occuper de faire la liaison entre les classes du GUI et les classes de calcules
  * toutes les classes du GUI feront appels à lui pour les interaction avec les filtres ou les les images.
@@ -17,6 +19,8 @@ import javax.swing.ImageIcon;
  *
  */
 public class GUIManager { 
+	
+	private static ClassList classList;
 	
 	File inputFile;
 	Image inputImage;
@@ -30,6 +34,7 @@ public class GUIManager {
 	
 	public GUIManager() {
 		System.out.println("GUIManager Created");
+		classList = new ClassList();
 
 	}
 
@@ -45,7 +50,7 @@ public class GUIManager {
 		try {
 			inputImage = ImageIO.read(inputFile);
 			buffInput = ImageIO.read(inputFile);
-			this.setSmallIconWidth(40);
+			//this.setSmallIconWidth(40);
 			replaceImageAtPosition(0,buffInput);
 			
 			
@@ -120,6 +125,11 @@ public class GUIManager {
 		}
 	}
 
+	public ArrayList<String> getFilterNameList(){
+		ArrayList<String> nameList = classList.getFilterNameList();
+		return nameList;
+		
+	}
 
 
 	public void setSmallIconWidth(int smallIconWidth) {

@@ -7,6 +7,7 @@ import Filters.FBitRedux;
 import Filters.FBitSliding;
 import Filters.FColorShift;
 import Filters.FFuckIt;
+import Filters.FNoFilter;
 import Filters.FPixelSorting;
 import Filters.FTest;
 import Filters.Filter;
@@ -49,7 +50,7 @@ public class ClassList {
 		System.out.println("***CREATE FILTER LIST***");
 		
 		// We put here the classes of all the filter
-		
+		filterList.add(FNoFilter.class);
 		filterList.add(FColorShift.class);
 		filterList.add(FBitSliding.class);
 		filterList.add(FFuckIt.class);

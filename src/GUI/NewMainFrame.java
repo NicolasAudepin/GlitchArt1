@@ -38,13 +38,14 @@ public class NewMainFrame extends JFrame {
 		});
 	}
 	*/
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public NewMainFrame(GUIManager GM) {
 		NewMainFrame.GM = GM;
-		
+		GM.setSmallIconWidth(200);
 		setMinimumSize(new Dimension(800,800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 1000);

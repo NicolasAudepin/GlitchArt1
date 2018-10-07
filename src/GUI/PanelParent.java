@@ -41,7 +41,7 @@ public class PanelParent extends JPanel{
 	protected Color textColor = Color.WHITE;
 	protected Font fontButton = new Font("Consolas", Font.BOLD, 20);
 	protected Font font = new Font("Consolas", Font.PLAIN, 18);
-	protected Font bigFont = new Font("Consolas", Font.PLAIN, 30);
+	protected Font bigFont = new Font("Consolas", Font.PLAIN, 40);
 	
 	
 	public PanelParent(GUIManager GM,NewMainFrame mainFrame){
