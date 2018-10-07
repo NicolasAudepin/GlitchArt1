@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -15,6 +16,7 @@ import manager.GUIManager;
 public class PanelParent extends JPanel{
 	
 	protected GUIManager GM;
+	protected NewMainFrame mainFrame;
 	//les distances fixes entre les composents
 	protected int dist = 10; // la distance normale entre deux objets
 	protected int FSWidth = 200; //la largeur de la zone de selecion de filtre
@@ -22,6 +24,7 @@ public class PanelParent extends JPanel{
 	protected int PBHeight =30; //hauteur de la bare de progrès
 	protected int RBLength = 160; //largeur du boutton render
 	protected int RBHeigth = 40; //hauteur du bouton render
+	protected int SmallIconWidth = 200; // la largeure des images dans la selection d'état
 	
 	//utile pour ecrire les constraints plus vite et plus lisibles
 	protected String W = SpringLayout.WEST;
@@ -41,8 +44,9 @@ public class PanelParent extends JPanel{
 	protected Font bigFont = new Font("Consolas", Font.PLAIN, 30);
 	
 	
-	public PanelParent(GUIManager GM){
+	public PanelParent(GUIManager GM,NewMainFrame mainFrame){
 		this.GM = GM;
+		this.mainFrame= mainFrame;
 		this.setBackground(backGroundColor);
 		System.out.println("panel creation");
 		this.setLayout(SL);

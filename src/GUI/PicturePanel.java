@@ -9,6 +9,7 @@ import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -29,8 +30,10 @@ public class PicturePanel extends PanelParent {
 	private JTextArea picInfo = new JTextArea();
 	private JFileChooser fChooser = new JFileChooser();;
 	
-	public PicturePanel(GUIManager GM){
-		super(GM);
+	public PicturePanel(GUIManager GM,NewMainFrame frame){
+		super(GM, frame);
+		System.out.println(SmallIconWidth);
+		GM.setSmallIconWidth(SmallIconWidth);
 		placeLabelandButton();
 		setActionListeners();
 		
@@ -48,6 +51,9 @@ public class PicturePanel extends PanelParent {
 						inputImage = GM.getInputImage();
 						drawScaledMainImage(inputImage,imageLabel);
 						picInfo.setText(GM.getInputInfoText());
+						System.out.println("file select");
+						mainFrame.getFilterPanel().setPreviousImageList(GM.getModelImageList());
+						
 					}
 					else{
 						imageLabel.setIcon(null);;

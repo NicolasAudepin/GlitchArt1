@@ -12,14 +12,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("Main Run");
-		GUIManager GM;
-		NewMainFrame MF;
-		
-		
+		GUIManager GM;		
 		GM = new GUIManager();
+		NewMainFrame MF;
 		MF = new NewMainFrame(GM);
 		MF.setVisible(true);
-		// TODO Auto-generated method stub
 
 	}
 

@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -49,8 +50,8 @@ public class FilterPanel extends PanelParent{
 	private JScrollPane scrollImage = new JScrollPane();
 	
 	
-	public FilterPanel(GUIManager GM){
-		super(GM);
+	public FilterPanel(GUIManager GM, NewMainFrame frame){
+		super(GM, frame);
 		placeLayoutandComponents();
 		setComponentsActionListeners();
 		
@@ -162,9 +163,15 @@ public class FilterPanel extends PanelParent{
 	 * remplie la liste avec les images que lui donne 
 	 * @param modelImageList
 	 */
-	private void setPreviousImageList(DefaultListModel<ImageIcon> modelImageList) {
-		// TODO mettre les bonnes images sans oublier l'image ajout de nouvelle image
-		try {
+	public void setPreviousImageList(DefaultListModel<ImageIcon> modelImageList) {
+		
+		ArrayList<ImageIcon> list = GM.getsmallIconList();
+		for(int i =0;i< list.size();i++){
+			ImageIcon im = list.get(i);
+			modelImageList.add(i, im);
+		}
+		
+		/*try {
 			//TODO mettre els bonnes images 
 
 			File file = new File("C:\\Users\\AUDEPIN\\Dropbox\\-Input\\aaa la joconde.jpg");
@@ -183,6 +190,7 @@ public class FilterPanel extends PanelParent{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	/**
