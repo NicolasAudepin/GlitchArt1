@@ -45,6 +45,7 @@ public class GUIManager {
 		try {
 			inputImage = ImageIO.read(inputFile);
 			buffInput = ImageIO.read(inputFile);
+			this.setSmallIconWidth(40);
 			replaceImageAtPosition(0,buffInput);
 			
 			

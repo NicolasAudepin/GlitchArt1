@@ -10,6 +10,7 @@ import GUI.NewMainFrame;
  */
 public class Main {
 
+	private static GUIManager GM;
 	public static void main(String[] args) {
 		System.out.println("Main Run");
 		GUIManager GM;		

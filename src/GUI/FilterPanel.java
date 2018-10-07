@@ -146,6 +146,10 @@ public class FilterPanel extends PanelParent{
 		
 	}
 	
+	public void setMainImage(Image im){
+		mainImage = im;
+		drawScaledMainImage(mainImage,mainImageLabel);
+	}
 	
 	private void setMainImageToJoconde() {
 		// TODO devrai ne pas exister
@@ -164,12 +168,13 @@ public class FilterPanel extends PanelParent{
 	 * @param modelImageList
 	 */
 	public void setPreviousImageList(DefaultListModel<ImageIcon> modelImageList) {
-		
+		/*
 		ArrayList<ImageIcon> list = GM.getsmallIconList();
 		for(int i =0;i< list.size();i++){
 			ImageIcon im = list.get(i);
 			modelImageList.add(i, im);
 		}
+		*/
 		
 		/*try {
 			//TODO mettre els bonnes images 

@@ -23,6 +23,11 @@ import manager.GUIManager;
  */
 public class PicturePanel extends PanelParent {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	Image inputImage;
 	
 	private JLabel imageLabel = new JLabel();
@@ -32,8 +37,8 @@ public class PicturePanel extends PanelParent {
 	
 	public PicturePanel(GUIManager GM,NewMainFrame frame){
 		super(GM, frame);
-		System.out.println(SmallIconWidth);
-		GM.setSmallIconWidth(SmallIconWidth);
+		System.out.println(smallIconWidth);
+
 		placeLabelandButton();
 		setActionListeners();
 		
@@ -44,6 +49,7 @@ public class PicturePanel extends PanelParent {
 		// selectFile Button pressed -> ouvre la fenètre de selection de fichiers
 		selectFileButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
+				System.out.println("**  selectFIle");
 				int fileValue = fChooser.showOpenDialog(fChooser);
 				if (fileValue == JFileChooser.APPROVE_OPTION){
 					GM.NewInputFileChoosen(fChooser.getSelectedFile());
@@ -52,7 +58,8 @@ public class PicturePanel extends PanelParent {
 						drawScaledMainImage(inputImage,imageLabel);
 						picInfo.setText(GM.getInputInfoText());
 						System.out.println("file select");
-						mainFrame.getFilterPanel().setPreviousImageList(GM.getModelImageList());
+						mainFrame.getFilterPanel().setMainImage(inputImage);
+						//mainFrame.getFilterPanel().setPreviousImageList(GM.getModelImageList());
 						
 					}
 					else{

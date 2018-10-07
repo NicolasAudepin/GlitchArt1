@@ -15,7 +15,7 @@ import manager.GUIManager;
 
 public class PanelParent extends JPanel{
 	
-	protected GUIManager GM;
+	protected static GUIManager GM;
 	protected NewMainFrame mainFrame;
 	//les distances fixes entre les composents
 	protected int dist = 10; // la distance normale entre deux objets
@@ -24,7 +24,7 @@ public class PanelParent extends JPanel{
 	protected int PBHeight =30; //hauteur de la bare de progrès
 	protected int RBLength = 160; //largeur du boutton render
 	protected int RBHeigth = 40; //hauteur du bouton render
-	protected int SmallIconWidth = 200; // la largeure des images dans la selection d'état
+	protected int smallIconWidth = 200; // la largeure des images dans la selection d'état
 	
 	//utile pour ecrire les constraints plus vite et plus lisibles
 	protected String W = SpringLayout.WEST;
@@ -45,7 +45,7 @@ public class PanelParent extends JPanel{
 	
 	
 	public PanelParent(GUIManager GM,NewMainFrame mainFrame){
-		this.GM = GM;
+		PanelParent.GM = GM;
 		this.mainFrame= mainFrame;
 		this.setBackground(backGroundColor);
 		System.out.println("panel creation");
@@ -83,5 +83,8 @@ public class PanelParent extends JPanel{
 		label.setText("");
 	}
 
+	public int getSmallIconWidth(){
+		return smallIconWidth;
+	}
 
 }

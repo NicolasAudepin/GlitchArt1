@@ -19,12 +19,12 @@ public class NewMainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private static GUIManager GM;
-	private PicturePanel picturePanel;
-	private FilterPanel filterPanel;
-	private PanelParent panelParent;
 
+	FilterPanel filterPanel;
+	/**
+	 * Launch the application.
+	 */
 	/*
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,7 +43,7 @@ public class NewMainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public NewMainFrame(GUIManager GM) {
-		this.GM = GM;
+		NewMainFrame.GM = GM;
 		
 		setMinimumSize(new Dimension(800,800));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,63 +55,22 @@ public class NewMainFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		filterPanel = new FilterPanel(GM,this);
 		tabbedPane.setBackground(Color.BLACK);
 		tabbedPane.setForeground(Color.WHITE);
 		tabbedPane.setFont( new Font("Consolas", Font.PLAIN, 20));
+		tabbedPane.add("PictureSelection",new PicturePanel(GM,this));
+		tabbedPane.add("Filter", (JPanel)filterPanel);
+		tabbedPane.add("parent", new PanelParent(GM,this));
 		
-		picturePanel = new PicturePanel(GM,this);
-		filterPanel = new FilterPanel(GM,this);
-		panelParent = new PanelParent(GM,this);		
-		tabbedPane.add("PictureSelection",picturePanel);
-		tabbedPane.add("Filter", filterPanel);
-		tabbedPane.add("parent", panelParent );
-		System.out.println("tabbedPane");
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		contentPane.setVisible(true);
-		System.out.println("tabbedPane after");
-	}
-	
-	
-	public JPanel getContentPane() {
-		return contentPane;
-	}
-
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
-	}
-
-	public static GUIManager getGM() {
-		return GM;
-	}
-
-	public static void setGM(GUIManager gM) {
-		GM = gM;
-	}
-
-	public PicturePanel getPicturePanel() {
-		return picturePanel;
-	}
-
-	public void setPicturePanel(PicturePanel picturePanel) {
-		this.picturePanel = picturePanel;
 	}
 
 	public FilterPanel getFilterPanel() {
 		return filterPanel;
+		// TODO Auto-generated method stub
+		
 	}
-
-	public void setFilterPanel(FilterPanel filterPanel) {
-		this.filterPanel = filterPanel;
-	}
-
-	public PanelParent getPanelParent() {
-		return panelParent;
-	}
-
-	public void setPanelParent(PanelParent panelParent) {
-		this.panelParent = panelParent;
-	}
-
 	
 
 }
