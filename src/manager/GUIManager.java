@@ -4,12 +4,14 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
+import Filters.Filter;
 import FramePack.ClassList;
 import FramePack.RenderingLayer;
 
@@ -28,10 +30,11 @@ public class GUIManager {
 	BufferedImage buffInput;
 	
 	int smallIconWidth;
+	
 	ArrayList<RenderingLayer> layerList = new ArrayList<RenderingLayer>();
-	ArrayList<Image> imageList = new ArrayList<Image>();
 	ArrayList<ImageIcon> smallIconList = new ArrayList<ImageIcon>();
 	DefaultListModel<ImageIcon> modelImageList = new DefaultListModel<ImageIcon>();
+	
 	
 	
 	public GUIManager() {
@@ -58,6 +61,10 @@ public class GUIManager {
 			if(layerList.size()==0){ //si le logicile viens d'être lancé et la première image selectionnée
 				System.out.println("create first Layer with buff input from file");
 				layerList.add(new RenderingLayer(buffInput));
+			}
+			else{
+				layerList.get(0).setInput(buffInput);//on remplace l'input du premier layer et çela doit creer la chaine de reaction
+				
 			}
 			replaceImageAtPosition(0,buffInput);
 			
@@ -119,15 +126,13 @@ public class GUIManager {
 		
 		int height =(int) ((float) width*ratio);
 		ImageIcon imIcon = new ImageIcon(im.getScaledInstance(width, height, Image.SCALE_FAST));
-		if (position>=imageList.size()){//ajoute une nouvelle image
-			imageList.add(position, im);
+		if (position>=smallIconList.size()){//ajoute une nouvelle image
 			smallIconList.add(position, imIcon);
 			modelImageList.add(position, imIcon);
 
 		
 		}
 		else{//change une image qui existe déjà
-			imageList.set(position, im);
 			smallIconList.set(position, imIcon);
 			modelImageList.set(position, imIcon);
 		}
@@ -185,17 +190,6 @@ public class GUIManager {
 
 
 
-	public ArrayList<Image> getImageList() {
-		return imageList;
-	}
-
-
-
-	public void setImageList(ArrayList<Image> imageList) {
-		this.imageList = imageList;
-	}
-
-
 
 	public ArrayList<ImageIcon> getSmallIconList() {
 		return smallIconList;
@@ -243,6 +237,46 @@ public class GUIManager {
 		Image im = layerList.get(layerPosition).getOutput();
 		
 		return im;
+	}
+
+
+	/**
+	 * get the index in the ClassList of the filter of the layer
+	 * @param layerPosition
+	 * @return index of the filter
+	 */
+	public int getLayerFilterNumber(int layerPosition) {
+		int index;
+		Filter filter = layerList.get(layerPosition).getFilter();
+		index = classList.getIndexOfFilter(filter);
+		return index;
+		
+	}
+
+
+	/**
+	 * Set the filter of the layer to a new instance of filter with the filtername;
+	 * @param LayerIndex
+	 * @param filterName
+	 */
+	public void setLayerFilter(int LayerIndex, int filterIndex) {
+		System.out.println("GUIM setLayerFilter ");
+		Filter filter;
+		Class<? extends Filter> filterclass = classList.getFilterList().get(filterIndex);//récupère la classe associée au filtre sélèctionné
+		System.out.println("trying to change the filter");
+		BufferedImage buff = (BufferedImage) layerList.get(LayerIndex).getInput();
+		try {
+			filter=filterclass.getDeclaredConstructor(BufferedImage.class).newInstance(buff);
+			System.out.println("filter class changed ");
+			layerList.get(LayerIndex).setFilter(filter);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			System.out.println("GUIM could not change the filter");
+			e.printStackTrace();
+		}
+		
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -28,12 +28,14 @@ public class RenderingLayer {
 	}
 	
 	public void setInput(BufferedImage buff){
-		System.out.println("layer input set");
+		System.out.println("layer input set -> rendering");
 		this.buffInput = buff;
+		renderOutput();
 	}
 	
 	public void renderOutput(){
-		System.out.println("render initiated ");
+		System.out.println("lazy render initiated ");
+		buffOutput = buffInput;
 		//TODO the stuff as you know it
 	}
 	
@@ -48,6 +50,11 @@ public class RenderingLayer {
 
 	public Image getOutput() {
 		return buffOutput;
+	}
+
+	public Filter getFilter() {
+		// TODO Auto-generated method stub
+		return filter;
 	}
 	
 	

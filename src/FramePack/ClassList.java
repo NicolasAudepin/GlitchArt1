@@ -154,4 +154,14 @@ public class ClassList {
 		MaskList.add(mask);
 	}
 
+	/**
+	 * used to determine wich filter name should be selected in the GUI
+	 * @param filter
+	 * @return index of the class of this filter
+	 */
+	public int getIndexOfFilter(Filter filter) {
+		int index = filterList.indexOf(filter.getClass());
+		return index;
+	}
+
 }

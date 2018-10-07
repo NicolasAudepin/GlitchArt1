@@ -26,6 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import manager.GUIManager;
 
@@ -49,6 +51,7 @@ public class FilterPanel extends PanelParent{
 	private JScrollPane scrollFilter = new JScrollPane();
 	private JScrollPane scrollImage = new JScrollPane();
 	
+	int currentLayerIndex = 0;
 	
 	public FilterPanel(GUIManager GM, NewMainFrame frame){
 		super(GM, frame);
@@ -65,6 +68,22 @@ public class FilterPanel extends PanelParent{
 		    	drawScaledMainImage(mainImage,mainImageLabel);
 		    }
 		});
+		
+		
+		//Selection d'un autre filtre
+		JfilterList.addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				int filterIndex = JfilterList.getSelectedIndex();
+				String filterName = JfilterList.getSelectedValue();
+				System.out.println("\n*** New Filter selected: "+filterName+ "***");
+				GM.setLayerFilter(currentLayerIndex , filterIndex );
+				SetParamJComponents(currentLayerIndex);
+			}
+			
+		});
+		
 		// TODO créé toute les actonListeners d l'user 
 		
 	}
@@ -267,11 +286,24 @@ public class FilterPanel extends PanelParent{
 	 */
 	private void goToLayer(int layerPosition){
 		System.out.println("*** GO TO LAYER "+ layerPosition +" ***");
+		currentLayerIndex = layerPosition;
 		setMainImage(GM.getLayerOutput(layerPosition));
+		SetSelectedFilter(layerPosition);
 		
-		SetParamJComponents(layerPosition);
 		
 		
+		
+	}
+
+	/**
+	 * selectionne le filtre du layer demandé
+	 * @param layerPosition
+	 */
+	private void SetSelectedFilter(int layerPosition) {
+		int index = GM.getLayerFilterNumber(layerPosition);
+		JfilterList.setSelectedIndex(index); // show the filter selected in the list
+
+		SetParamJComponents(layerPosition);//met tout les params en place
 		
 	}
 
@@ -280,6 +312,8 @@ public class FilterPanel extends PanelParent{
 	 * @param layerPosition
 	 */
 	private void SetParamJComponents(int layerPosition) {
+		System.out.println("setting the Jparam of this layer is empty");
+		//GM.getparamList(currentLayerIndex);
 		// TODO Auto-generated method stub
 		
 	}
