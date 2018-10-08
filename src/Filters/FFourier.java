@@ -9,6 +9,7 @@ import backgroundThreads.ApplyFilterThread;
 import org.jtransforms.fft.FloatFFT_1D;
 import org.jtransforms.dct.DoubleDCT_1D;
 import org.jtransforms.dst.DoubleDST_1D;
+import org.jtransforms.dst.DoubleDST_2D;
 import org.jtransforms.fft.DoubleFFT_1D;;
 
 public class FFourier extends Filter{
@@ -62,22 +63,50 @@ public class FFourier extends Filter{
 		int mode = TparamValueList.get(1);
 		
 		
-		
+		//on choisit quel mode de calcul utiliser
 		if (spooky){
 			output=spooky(input);
 		}
 		
-		if (spookyRGB ){
+		else if (spookyRGB ){
 			output= spookyRGB(input);
 		}
 		
-		if (!spooky && !spookyRGB){
-			if (mode == 1 || mode == 0){
-				output = colone(input);
-				
-			}
-
+		else if (!spooky && !spookyRGB && (mode==1||mode==0)){
+			output = colone(input);
 		}
+		
+		if (mode==3){
+			
+			int width = input.getWidth();
+			int height = input.getHeight();
+			DoubleDST_2D fft = new DoubleDST_2D(width, height);
+			double[][] picR = new double[width][height];
+			double[][] picG = new double[width][height];
+			double[][] picB = new double[width][height];
+			
+			for(int i=0;i<width;i++){
+				for(int j=0;j<height;j++){
+					Color c = new Color(input.getRGB(i, j));
+					int R = c.getRed();
+					int G = c.getGreen();
+					int B = c.getBlue();
+					
+					if(!backward){
+						picR[i][j]=R;
+						picG[i][j]=G;
+						picB[i][j]=B;
+					}
+					
+			
+					
+				}
+			}
+			
+			fft.forward(picR, true);
+			
+		}
+		
 		return output;
 	}
 
