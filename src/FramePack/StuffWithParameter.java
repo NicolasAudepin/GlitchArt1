@@ -84,6 +84,7 @@ public class StuffWithParameter {
 			String name = filterParamList.get(i).getName();
 			if (filterParamList.get(i-1).getName() != name){
 				treatedParamValue.add(value);
+				multi = 1;
 			}
 			else{
 				multi++;
