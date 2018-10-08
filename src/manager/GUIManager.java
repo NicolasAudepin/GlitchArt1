@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import Filters.Filter;
 import FramePack.ClassList;
 import FramePack.RenderingLayer;
+import Parameter.ParameterParent;
 
 /**
  * Le GUI Manager est la classe qui va s'occuper de faire la liaison entre les classes du GUI et les classes de calcules
@@ -276,6 +277,18 @@ public class GUIManager {
 		}
 		
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	/**
+	 * renvoi la liste des paramètres du filltre du Layer
+	 * @param currentLayerIndex
+	 * @return
+	 */
+	public ArrayList<ParameterParent> getparamList(int currentLayerIndex) {
+		Filter filter = layerList.get(currentLayerIndex).getFilter();
+		return filter.getFilterParamList();
 		
 	}
 	

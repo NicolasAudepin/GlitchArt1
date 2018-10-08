@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Parameter.ParameterParent;
 import manager.GUIManager;
 
 public class FilterPanel extends PanelParent{
@@ -52,6 +53,7 @@ public class FilterPanel extends PanelParent{
 	private JScrollPane scrollImage = new JScrollPane();
 	
 	int currentLayerIndex = 0;
+	ArrayList<ParameterParent> paramList; 
 	
 	public FilterPanel(GUIManager GM, NewMainFrame frame){
 		super(GM, frame);
@@ -313,7 +315,7 @@ public class FilterPanel extends PanelParent{
 	 */
 	private void SetParamJComponents(int layerPosition) {
 		System.out.println("setting the Jparam of this layer is empty");
-		//GM.getparamList(currentLayerIndex);
+		paramList = GM.getparamList(currentLayerIndex);
 		// TODO Auto-generated method stub
 		
 	}
