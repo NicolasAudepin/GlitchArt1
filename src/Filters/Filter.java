@@ -2,6 +2,7 @@ package Filters ;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import FramePack.ClassList;
 import FramePack.StuffWithParameter;
 import backgroundThreads.ApplyFilterThread;
 
@@ -18,6 +19,7 @@ public class Filter extends StuffWithParameter{
 	ApplyFilterThread aft;
 	BufferedImage input;
 	BufferedImage output;
+	static ClassList classList;
 	
 	//ArrayList<FilterParameter> paramList = new ArrayList<FilterParameter>();
 	

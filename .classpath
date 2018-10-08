@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AUDEPIN/Downloads/JTransforms-3.1-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AUDEPIN/Downloads/JTransforms-3.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/AUDEPIN/Downloads/JTransforms-3.1-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

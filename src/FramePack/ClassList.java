@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import Filters.FBitRedux;
 import Filters.FBitSliding;
 import Filters.FColorShift;
+import Filters.FFourier;
 import Filters.FFuckIt;
 import Filters.FNoFilter;
 import Filters.FPixelSorting;
@@ -56,6 +57,7 @@ public class ClassList {
 		filterList.add(FFuckIt.class);
 		filterList.add(FBitRedux.class);
 		filterList.add(FPixelSorting.class);
+		filterList.add(FFourier.class);
 		filterList.add(FTest.class);
 		
 		

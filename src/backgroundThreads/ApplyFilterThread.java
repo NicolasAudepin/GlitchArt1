@@ -41,10 +41,11 @@ public class ApplyFilterThread extends SwingWorker<BufferedImage, Void>{
 	 */
 	@Override
 	protected BufferedImage doInBackground() throws Exception {
-		
+		System.out.println("ApplyFilterThread go");
 		setProgress(0);
 		output = fil.applyFilter(input,this);
-		
+		System.out.println("fin calcul applyFIlter");
+		System.out.println(output.getWidth());
 		return output;
 	}
 
@@ -52,6 +53,7 @@ public class ApplyFilterThread extends SwingWorker<BufferedImage, Void>{
 	 * La tache est fini on envoi le résulta à la FilterFrame
 	 */
 	public void done() {
+		System.out.println("ApplyFilterThread done");
 		ff.setBufOutput(output);
 		ff.setRenderIcon(output);
 	}

@@ -18,7 +18,7 @@ public class FPixelSorting extends Filter{
 	boolean[][] inputMaskMatrix;
 	boolean[][] outputMaskMatrix;
 	
-	static ClassList classList;
+	
 	static Color c;
 	
 	public FPixelSorting(BufferedImage buff){
