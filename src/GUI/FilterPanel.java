@@ -191,6 +191,8 @@ public class FilterPanel extends PanelParent{
 		DefaultListModel<ImageIcon> newModelList = new DefaultListModel<ImageIcon>();
 		System.out.println("set icons");
 		ArrayList<ImageIcon> list = GM.getsmallIconList();
+		//ImageIcon plus = new ImageIcon(this.getClass().getResource("Images/Plus.jpg" ));
+		//list.add(plus);
 		for(int i =0;i< list.size();i++){
 			System.out.println("for"+i);
 			ImageIcon im = list.get(i);			
