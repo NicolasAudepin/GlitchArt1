@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -58,7 +59,7 @@ public class FilterPanel extends PanelParent{
 	private JScrollPane scrollImage = new JScrollPane();
 	private JScrollPane scrollParam = new JScrollPane();
 	JPanel filterPan = new JPanel();
-	
+	SpringLayout SLparam;
 	
 	int currentLayerIndex = 0;
 	ArrayList<ParameterParent> paramList;
@@ -141,7 +142,9 @@ public class FilterPanel extends PanelParent{
 		
 		//Création de la zone des params
 		
-		filterPan.setBackground(backGroundColor);;
+		filterPan.setBackground(backGroundColor);
+		SLparam = new SpringLayout();
+		filterPan.setLayout(SLparam);;
 		scrollParam.setViewportView(filterPan);
 		add(scrollParam);
 		
@@ -155,7 +158,6 @@ public class FilterPanel extends PanelParent{
 		DefaultListModel<ImageIcon> modelImageList = new DefaultListModel<ImageIcon>();
 		JimageList.setModel(modelImageList);
 		JimageList.setBackground(behindPicColor);
-		
 		scrollImage.setViewportView(JimageList);
 		add(scrollImage);
 		
@@ -347,36 +349,61 @@ public class FilterPanel extends PanelParent{
 	 * @param layerPosition
 	 */
 	private void SetParamJComponents(int layerPosition) {
+		filterPan.removeAll();
 		System.out.println("\nsetting the Jparam of this layer");
 		paramList = GM.getparamList(currentLayerIndex);
 		int nbParam = paramList.size();
 		System.out.println("there are "+nbParam+" param");
-		int btnHeigth = 50;
-		int lblLength = 100;
+		int btnHeigth = 40;
+		int lblLength = 300;
 		for (int i = 0; i<nbParam;i++){//Pour chaque param on créé ici ses JComponents
 
 			// boby est le JLabel qui affiche le nom du paramètre 
 			// le label boby ne dépend pas du type de parametre
 			ParameterParent parameter = paramList.get(i);
 			JLabel boby = new JLabel();
+			
 			boby.setText(parameter.getName());
 			boby.setFont(new Font("Consolas", Font.PLAIN, 18));
 			boby.setForeground(textColor);
+			boby.setBackground(Color.RED);
+			boby.setOpaque(true);
+			boby.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			
-			boby.setBounds(15, 100+parameter.getGraphicalPlacement()*(btnHeigth + dist), lblLength, btnHeigth);
-			boby.setHorizontalAlignment(SwingConstants.RIGHT);
-			paramJLabelList .add(boby);
+			//puting constrains on the boby JLabel
+			
+			paramJLabelList.add(boby);
+			
 			filterPan.add(boby);
 			
 			
 		}
+		
+		for (int i = 0; i<nbParam;i++){
+			JLabel boby=paramJLabelList.get(i);
+			
+			if (i==0){
+				SLparam.putConstraint(N, paramJLabelList.get(i), dist, N, filterPan);
+			}
+			else{
+				SLparam.putConstraint(N, paramJLabelList.get(i), dist, S, paramJLabelList.get(i-1));
+			}
+			SLparam.putConstraint(S, paramJLabelList.get(i), btnHeigth, N, paramJLabelList.get(i));
+			SLparam.putConstraint(W, paramJLabelList.get(i), 1, W, filterPan);
+			SLparam.putConstraint(E, paramJLabelList.get(i), lblLength, W, paramJLabelList.get(i));
+			
+			
+		}
+		
+		
 		filterPan.revalidate();
 		int scrollSize = Math.min(maxScrollParamHeigth ,neededSize(paramList));
 		SL.putConstraint(S, scrollParam,scrollSize, N, scrollParam);
 		revalidate();
 		
 	}
+	
 
 	private int neededSize(ArrayList<ParameterParent> list) {
 		int size = 0;
