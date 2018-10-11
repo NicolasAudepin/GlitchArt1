@@ -46,7 +46,7 @@ public class NewMainFrame extends JFrame {
 	public NewMainFrame(GUIManager GM) {
 		NewMainFrame.GM = GM;
 		GM.setSmallIconWidth(200);
-		setMinimumSize(new Dimension(800,800));
+		setMinimumSize(new Dimension(1200,1200));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 1000);
 		contentPane = new JPanel();

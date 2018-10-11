@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -11,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -29,7 +31,10 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Parameter.CheckBoxParameter;
+import Parameter.MaskParameter;
 import Parameter.ParameterParent;
+import Parameter.SliderParameter;
 import manager.GUIManager;
 
 public class FilterPanel extends PanelParent{
@@ -51,9 +56,18 @@ public class FilterPanel extends PanelParent{
 	private JList<ImageIcon> JimageList = new JList<ImageIcon>();
 	private JScrollPane scrollFilter = new JScrollPane();
 	private JScrollPane scrollImage = new JScrollPane();
+	private JScrollPane scrollParam = new JScrollPane();
+	JPanel filterPan = new JPanel();
+	
 	
 	int currentLayerIndex = 0;
-	ArrayList<ParameterParent> paramList; 
+	ArrayList<ParameterParent> paramList;
+
+
+	private ArrayList<JLabel> paramJLabelList = new ArrayList<JLabel>();
+
+
+	private int maxScrollParamHeigth = 200; 
 	
 	public FilterPanel(GUIManager GM, NewMainFrame frame){
 		super(GM, frame);
@@ -90,6 +104,10 @@ public class FilterPanel extends PanelParent{
 		
 	}
 
+	/**
+	 * initialise tout les JComponents de ce panel tel que les boutotn render
+	 * ou le label de l'image principale
+	 */
 	private void placeLayoutandComponents(){
 		
 		
@@ -119,6 +137,13 @@ public class FilterPanel extends PanelParent{
 		JfilterList.setForeground(Color.WHITE);
 		scrollFilter.setViewportView(JfilterList);
 		add(scrollFilter);
+		
+		
+		//Création de la zone des params
+		
+		filterPan.setBackground(backGroundColor);;
+		scrollParam.setViewportView(filterPan);
+		add(scrollParam);
 		
 		
 		//créaion de la zone de selection des images
@@ -248,11 +273,17 @@ public class FilterPanel extends PanelParent{
 		SL.putConstraint(E, progressBar, -dist, W, scrollFilter);
 		SL.putConstraint(S, progressBar, -dist, S, this);
 		SL.putConstraint(N, progressBar, -PBHeight, S, progressBar);
+		//position de la zone de param
+		SL.putConstraint(N, scrollParam, dist, S, Jrender);
+		SL.putConstraint(S, scrollParam, 3*dist, N, scrollParam);
+		SL.putConstraint(W, scrollParam, dist, W, this);
+		SL.putConstraint(E, scrollParam, -dist, W, scrollFilter);
+		
 		//position mainImageLabel
 		SL.putConstraint(W, mainImageLabel, dist, W, this);
 		SL.putConstraint(E, mainImageLabel, -dist, W, scrollFilter);
 		SL.putConstraint(S, mainImageLabel, -dist, N, progressBar);
-		SL.putConstraint(N, mainImageLabel, 200, N, this);
+		SL.putConstraint(N, mainImageLabel, dist, S, scrollParam);
 		//position de render
 		SL.putConstraint(W, Jrender, dist, W, this);
 		SL.putConstraint(E, Jrender, RBLength, W, Jrender);
@@ -316,10 +347,55 @@ public class FilterPanel extends PanelParent{
 	 * @param layerPosition
 	 */
 	private void SetParamJComponents(int layerPosition) {
-		System.out.println("setting the Jparam of this layer is empty");
+		System.out.println("\nsetting the Jparam of this layer");
 		paramList = GM.getparamList(currentLayerIndex);
-		// TODO Auto-generated method stub
+		int nbParam = paramList.size();
+		System.out.println("there are "+nbParam+" param");
+		int btnHeigth = 50;
+		int lblLength = 100;
+		for (int i = 0; i<nbParam;i++){//Pour chaque param on créé ici ses JComponents
+
+			// boby est le JLabel qui affiche le nom du paramètre 
+			// le label boby ne dépend pas du type de parametre
+			ParameterParent parameter = paramList.get(i);
+			JLabel boby = new JLabel();
+			boby.setText(parameter.getName());
+			boby.setFont(new Font("Consolas", Font.PLAIN, 18));
+			boby.setForeground(textColor);
+			
+			
+			boby.setBounds(15, 100+parameter.getGraphicalPlacement()*(btnHeigth + dist), lblLength, btnHeigth);
+			boby.setHorizontalAlignment(SwingConstants.RIGHT);
+			paramJLabelList .add(boby);
+			filterPan.add(boby);
+			
+			
+		}
+		filterPan.revalidate();
+		int scrollSize = Math.min(maxScrollParamHeigth ,neededSize(paramList));
+		SL.putConstraint(S, scrollParam,scrollSize, N, scrollParam);
+		revalidate();
 		
+	}
+
+	private int neededSize(ArrayList<ParameterParent> list) {
+		int size = 0;
+		//TODO faire tout ça mieux
+		
+		int nbParam = list.size();
+		for (int i = 0; i<nbParam;i++){
+			if (list.get(i).getClass()==MaskParameter.class){
+				size += 30;
+			}
+			else if(list.get(i).getClass()==SliderParameter.class){
+				size+=30;
+			}
+			else if(list.get(i).getClass()==CheckBoxParameter.class){
+				size+=3000;
+			}
+			
+		}
+		return size;
 	}
 
 	
