@@ -292,6 +292,13 @@ public class GUIManager {
 		return filter.getFilterParamList();
 		
 	}
+
+
+
+	public Filter getFilter(int currentLayerIndex) {
+		Filter filter = layerList.get(currentLayerIndex).getFilter();
+		return filter;
+	}
 	
 	
 }

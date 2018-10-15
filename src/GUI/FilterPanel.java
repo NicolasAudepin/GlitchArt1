@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Filters.Filter;
 import Parameter.CheckBoxParameter;
 import Parameter.MaskParameter;
 import Parameter.ParameterParent;
@@ -60,15 +61,14 @@ public class FilterPanel extends PanelParent{
 	private JScrollPane scrollParam = new JScrollPane();
 	JPanel filterPan = new JPanel();
 	SpringLayout SLparam;
-	
+	private int maxScrollParamHeigth = 200; 
 	int currentLayerIndex = 0;
 	ArrayList<ParameterParent> paramList;
 
 
-	private ArrayList<JLabel> paramJLabelList = new ArrayList<JLabel>();
 
 
-	private int maxScrollParamHeigth = 200; 
+	
 	
 	public FilterPanel(GUIManager GM, NewMainFrame frame){
 		super(GM, frame);
@@ -82,6 +82,7 @@ public class FilterPanel extends PanelParent{
 		//Lorsque la fenètre change de taille on resize l'image principale
 		this.addComponentListener(new ComponentAdapter() {
 		    public void componentResized(ComponentEvent componentEvent) {
+		    	filterPan.revalidate();
 		    	drawScaledMainImage(mainImage,mainImageLabel);
 		    }
 		});
@@ -96,7 +97,7 @@ public class FilterPanel extends PanelParent{
 				String filterName = JfilterList.getSelectedValue();
 				System.out.println("\n*** New Filter selected: "+filterName+ "***");
 				GM.setLayerFilter(currentLayerIndex , filterIndex );
-				SetParamJComponents(currentLayerIndex);
+				SetSelectedFilter(currentLayerIndex);
 			}
 			
 		});
@@ -142,9 +143,8 @@ public class FilterPanel extends PanelParent{
 		
 		//Création de la zone des params
 		
-		filterPan.setBackground(backGroundColor);
-		SLparam = new SpringLayout();
-		filterPan.setLayout(SLparam);;
+		filterPan = new ParamPanel(GM,mainFrame,this);
+		
 		scrollParam.setViewportView(filterPan);
 		add(scrollParam);
 		
@@ -333,75 +333,26 @@ public class FilterPanel extends PanelParent{
 	}
 
 	/**
-	 * selectionne le filtre du layer demandé
+	 * selectionne le filtre du layer demandé et créé un nouveau filterPanel à partir de celui ci
+	 * 
 	 * @param layerPosition
 	 */
 	private void SetSelectedFilter(int layerPosition) {
 		int index = GM.getLayerFilterNumber(layerPosition);
 		JfilterList.setSelectedIndex(index); // show the filter selected in the list
-
-		SetParamJComponents(layerPosition);//met tout les params en place
-		
-	}
-
-	/**
-	 * met en place les JComponents du Layer demandé
-	 * @param layerPosition
-	 */
-	private void SetParamJComponents(int layerPosition) {
-		filterPan.removeAll();
-		System.out.println("\nsetting the Jparam of this layer");
+		Filter f = GM.getFilter(currentLayerIndex);
 		paramList = GM.getparamList(currentLayerIndex);
-		int nbParam = paramList.size();
-		System.out.println("there are "+nbParam+" param");
-		int btnHeigth = 40;
-		int lblLength = 300;
-		for (int i = 0; i<nbParam;i++){//Pour chaque param on créé ici ses JComponents
+		
 
-			// boby est le JLabel qui affiche le nom du paramètre 
-			// le label boby ne dépend pas du type de parametre
-			ParameterParent parameter = paramList.get(i);
-			JLabel boby = new JLabel();
-			
-			boby.setText(parameter.getName());
-			boby.setFont(new Font("Consolas", Font.PLAIN, 18));
-			boby.setForeground(textColor);
-			boby.setBackground(Color.RED);
-			boby.setOpaque(true);
-			boby.setHorizontalAlignment(SwingConstants.CENTER);
-			
-			
-			//puting constrains on the boby JLabel
-			
-			paramJLabelList.add(boby);
-			
-			filterPan.add(boby);
-			
-			
-		}
-		
-		for (int i = 0; i<nbParam;i++){
-			JLabel boby=paramJLabelList.get(i);
-			
-			if (i==0){
-				SLparam.putConstraint(N, paramJLabelList.get(i), dist, N, filterPan);
-			}
-			else{
-				SLparam.putConstraint(N, paramJLabelList.get(i), dist, S, paramJLabelList.get(i-1));
-			}
-			SLparam.putConstraint(S, paramJLabelList.get(i), btnHeigth, N, paramJLabelList.get(i));
-			SLparam.putConstraint(W, paramJLabelList.get(i), 1, W, filterPan);
-			SLparam.putConstraint(E, paramJLabelList.get(i), lblLength, W, paramJLabelList.get(i));
-			
-			
-		}
-		
-		
-		filterPan.revalidate();
 		int scrollSize = Math.min(maxScrollParamHeigth ,neededSize(paramList));
 		SL.putConstraint(S, scrollParam,scrollSize, N, scrollParam);
+		filterPan = new ParamPanel(GM,mainFrame,this,f);
+		scrollParam.setViewportView(filterPan);
+		scrollParam.revalidate();
+		scrollParam.repaint();
+
 		revalidate();
-		
+		repaint();
 	}
 	
 
