@@ -146,6 +146,8 @@ public class FilterPanel extends PanelParent{
 		filterPan = new ParamPanel(GM,mainFrame,this);
 		
 		scrollParam.setViewportView(filterPan);
+		scrollParam.setWheelScrollingEnabled(true);
+		scrollParam.setPreferredSize(new Dimension(160, 200));
 		add(scrollParam);
 		
 		

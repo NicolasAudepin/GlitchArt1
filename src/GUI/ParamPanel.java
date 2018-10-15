@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -29,6 +30,8 @@ public class ParamPanel extends PanelParent{
 		SLparam = new SpringLayout();
 		setLayout(SLparam);;
 		setBackground(backGroundColor);
+		setPreferredSize(new Dimension(3000, 3000));
+		
 	}
 	
 	public ParamPanel(GUIManager GM,NewMainFrame mainFrame,PanelParent dady,Filter filter){
@@ -36,8 +39,9 @@ public class ParamPanel extends PanelParent{
 		this.dady = dady;
 		this.filter = filter;
 		SLparam = new SpringLayout();
-		setLayout(SLparam);;
-		setBackground(Color.BLUE);
+		setLayout(SLparam);
+		setPreferredSize(new Dimension(3000, 3000));
+		setBackground(super.backGroundColor);
 		SetParamJComponents( filter);
 	}
 
@@ -63,7 +67,7 @@ public class ParamPanel extends PanelParent{
 			boby.setText(parameter.getName());
 			boby.setFont(new Font("Consolas", Font.PLAIN, 18));
 			boby.setForeground(textColor);
-			boby.setBackground(Color.RED);
+			boby.setBackground(super.buttonColor);
 			boby.setOpaque(true);
 			boby.setHorizontalAlignment(SwingConstants.CENTER);
 			
